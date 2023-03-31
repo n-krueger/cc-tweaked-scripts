@@ -26,12 +26,14 @@ local textColour = monitor.getTextColour()
 
 monitor.setBackgroundColour(colors.gray)
 monitor.clear()
+monitor.setCursorPos(0,0)
+
 monitor.setTextColour(colors.white)
-monitor.write("# mobs detected: " .. n)
+monitor.write("# mobs detected: " .. n .. "\n")
 monitor.setTextColour(colors.blue)
-monitor.write("# cows detected: " .. n_cows)
+monitor.write("# cows detected: " .. n_cows .. "\n")
 monitor.setTextColour(colors.red)
-monitor.write("# chickens detected: " .. n_chickens)
+monitor.write("# chickens detected: " .. n_chickens .. "\n")
 
 -- Reset colour settings to original settings
 monitor.setBackgroundColour(backgroundColour)
