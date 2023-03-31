@@ -4,7 +4,7 @@ local main = basalt.createFrame()
 
 local clickCount = 0
 local sensor = peripheral.wrap("right")
-local n = #entities
+local n = 0
 local n_cows = 0
 local n_chickens = 0
 
