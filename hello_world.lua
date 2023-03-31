@@ -20,7 +20,7 @@ print("# cows detected: " .. n_cows)
 print("# chickens detected: " .. n_chickens)
 
 local monitor = peripheral.wrap("left")
-monitor.setBackgroundColour(colors.grey)
+monitor.setBackgroundColour(colors.gray)
 monitor.setTextColour(colors.white)
 monitor.write("# mobs detected: " .. n)
 monitor.setTextColour(colors.blue)
