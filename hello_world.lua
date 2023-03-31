@@ -26,7 +26,7 @@ local textColour = monitor.getTextColour()
 
 monitor.setBackgroundColour(colors.gray)
 monitor.clear()
-monitor.setCursorPos(0,0)
+monitor.setCursorPos(1,1)
 
 monitor.setTextColour(colors.white)
 monitor.write("# mobs detected: " .. n .. "\n")
