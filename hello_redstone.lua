@@ -1,5 +1,6 @@
-print("Ejecting Dog")
+print("Enabling Lamps")
 
-redstone.setOutput("front", true);
+local colorMask = colors.combine(colors.black, colors.white)
+redstone.setBundledOutput("front", colorMask)
 sleep(0.5)
-redstone.setOutput("front", false);
+redstone.setBundledOutput("front", 0)
