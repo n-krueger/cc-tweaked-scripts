@@ -29,11 +29,13 @@ monitor.clear()
 monitor.setCursorPos(1,1)
 
 monitor.setTextColour(colors.white)
-monitor.write("# mobs detected: " .. n .. "\n")
+monitor.write("# mobs detected: " .. n)
+monitor.setCursorPos(1,2)
 monitor.setTextColour(colors.blue)
-monitor.write("# cows detected: " .. n_cows .. "\n")
+monitor.write("# cows detected: " .. n_cows)
+monitor.setCursorPos(1,3)
 monitor.setTextColour(colors.red)
-monitor.write("# chickens detected: " .. n_chickens .. "\n")
+monitor.write("# chickens detected: " .. n_chickens)
 
 -- Reset colour settings to original settings
 monitor.setBackgroundColour(backgroundColour)
