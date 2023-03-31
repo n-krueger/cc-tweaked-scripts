@@ -16,6 +16,11 @@ for i, e in ipairs(entities) do
     end
 end
 
-print("# mobs detected: " .. n)
 print("# cows detected: " .. n_cows)
 print("# chickens detected: " .. n_chickens)
+
+local monitor = peripheral.wrap("left")
+monitor.setBackgroundColor(colors.magenta)
+monitor.blit("# mobs detected: " .. n, colors.white, colors.black)
+monitor.blit("# cows detected: " .. n_cows, colors.brown, colors.black)
+monitor.blit("# chickens detected: " .. n_chickens, colors.red, colors.black)
