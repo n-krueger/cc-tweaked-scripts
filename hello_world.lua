@@ -4,4 +4,4 @@ local sensor = peripheral.wrap("right")
 local entities = sensor.sense()
 local n = #entities
 
-print("# mobs detected: " + n)
+print("# mobs detected: " .. n)
