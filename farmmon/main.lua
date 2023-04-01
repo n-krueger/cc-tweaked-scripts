@@ -24,14 +24,22 @@ local farm_spruce_3 = Farm:new({ peripheral = peripheral_spruce_3 })
 local peripheral_spruce_4 = peripheral.wrap("forestry:farm_7")
 local farm_spruce_4 = Farm:new({ peripheral = peripheral_spruce_4 })
 
-print("===== Soil =====")
-pretty.print(pretty.pretty(farm_ender_1:get_soil_counts()))
+local execution_count = 0
 
-print("===== Seed =====")
-pretty.print(pretty.pretty(farm_ender_1:get_seed_counts()))
+for i=1,100 do
+    print("i=" .. 1)
 
-print("===== Output =====")
-pretty.print(pretty.pretty(farm_ender_1:get_output_counts()))
+    print("===== Soil =====")
+    pretty.print(pretty.pretty(farm_ender_1:get_soil_counts()))
 
-print("===== Fertilizer =====")
-pretty.print(pretty.pretty(farm_ender_1:get_fertilizer_count()))
+    print("===== Seed =====")
+    pretty.print(pretty.pretty(farm_ender_1:get_seed_counts()))
+
+    print("===== Output =====")
+    pretty.print(pretty.pretty(farm_ender_1:get_output_counts()))
+
+    print("===== Fertilizer =====")
+    pretty.print(pretty.pretty(farm_ender_1:get_fertilizer_count()))
+
+    sleep(0.049)
+end
