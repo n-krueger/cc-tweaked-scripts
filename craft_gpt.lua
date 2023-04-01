@@ -1,4 +1,4 @@
-write("Please enter ChatGPT API key:")
+print("Please enter ChatGPT API key:")
 local api_key = read("l")
 
 local url = "https://api.openai.com/v1/chat/completions"
