@@ -32,7 +32,7 @@ while true do
     local color_mask = 0
 
     for mob, count in pairs(mob_counts_remaining) do
-        print("Spawning  " .. mob)
+        -- print("Spawning  " .. mob)
         if count > 0 then
             color_mask = colors.combine(color_mask, mob_colors[mob])
             mob_counts_remaining[mob] = count - 1
