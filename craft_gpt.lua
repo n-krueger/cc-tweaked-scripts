@@ -29,9 +29,10 @@ local response_json = request.readAll()
 local response = textutils.unserializeJSON(response_json)
 request.close()
 
-if response.choices[0] == nil then
+if response.choices == nil then
     textutils.slowPrint(response_json)
 else
-    local message = response.choices[0].message.content
+    local message = response.choices
+    print(type(message))
     textutils.slowPrint(message)
 end
