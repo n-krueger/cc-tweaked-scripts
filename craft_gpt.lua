@@ -19,9 +19,10 @@ local headers = {
 print("Body:")
 print(body_json)
 
-local request, message = http.post(url, body_json, headers)
+local request, message, error_response = http.post(url, body_json, headers)
 if request == nil then
     print("Error: "..message)
+    print(error_response.readAll())
 else 
     print(request.readAll())
     request.close()
