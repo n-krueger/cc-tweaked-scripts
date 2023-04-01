@@ -18,27 +18,27 @@ end
 
 function Farm:list_soil()
     return fun.totable(fun.map(
-        function(slot) self.peripheral.getItemDetail(slot) end,
+        function(slot) self.peripheral.getItem(slot) end,
         soil_slots
     ))
 end
 
 function Farm:list_seed()
     return fun.totable(fun.map(
-        function(slot) self.peripheral.getItemDetail(slot) end,
+        function(slot) self.peripheral.getItem(slot) end,
         seed_slots
     ))
 end
 
 function Farm:list_output()
     return fun.totable(fun.map(
-        function(slot) self.peripheral.getItemDetail(slot) end,
+        function(slot) self.peripheral.getItem(slot) end,
         output_slots
     ))
 end
 
 function Farm:get_fertilizer()
-    return self.peripheral.getItemDetail(fertilizer_slot)
+    return self.peripheral.getItem(fertilizer_slot)
 end
 
 return Farm
