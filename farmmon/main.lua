@@ -27,7 +27,7 @@ local farm_spruce_4 = Farm:new({ peripheral = peripheral_spruce_4 })
 local execution_count = 0
 
 for i=1,100 do
-    print("i=" .. 1)
+    print("i=" .. i)
 
     print("===== Soil =====")
     pretty.print(pretty.pretty(farm_ender_1:get_soil_counts()))
