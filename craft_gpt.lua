@@ -1,3 +1,5 @@
+local pretty = require("cc.pretty")
+
 print("Please enter ChatGPT API key:")
 local api_key = read("l")
 
@@ -26,5 +28,9 @@ end
 local response = textutils.unserializeJSON(request.readAll())
 request.close()
 
-local message = response["choices"][0]["message"]["content"]
-textutils.slowPrint(message)
+if response.choices[0] == nil then
+    pretty.print(response)
+else
+    local message = response.choices[0].message.content
+    textutils.slowPrint(message)
+end
