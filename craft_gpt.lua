@@ -9,7 +9,7 @@ local body = {
     messages = {
         {
             role = "user",
-            content = "Your name is now Trusty. You are an advanced AI inside of a Minecraft world supporting the players with your vast knowledge."
+            content = "Your name is now Trusty. You are an advanced AI inside of a Minecraft world supporting the players with your vast knowledge. Please briefly introduce yourself."
         }
     }
 }
