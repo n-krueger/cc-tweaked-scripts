@@ -1,4 +1,3 @@
-local io = require('io')
 local textutils = require('textutils')
 local http = require('http')
 
