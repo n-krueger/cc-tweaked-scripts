@@ -1,6 +1,7 @@
 local pretty = require("cc.pretty")
 
 local redstone_face = "front"
+local loop_delay = 1
 
 local mob_colors = {
     Chicken = colors.white,
@@ -14,9 +15,9 @@ local mob_colors = {
 local mob_counts = {
     Chicken = 3,
     Cow = 2,
-    Horse = 1,
-    Pig = 1,
-    Sheep = 1,
+    Horse = 0,
+    Pig = 0,
+    Sheep = 0,
     Zombie = nil,
 }
 
@@ -45,6 +46,6 @@ while true do
     end
 
     redstone.setBundledOutput(redstone_face, color_mask)
-    sleep(0.5)
+    sleep(loop_delay)
     redstone.setBundledOutput(redstone_face, 0)
 end
