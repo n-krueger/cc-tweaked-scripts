@@ -1,9 +1,6 @@
 print("Please enter ChatGPT API key:")
 local api_key = read("l")
 
-print("Your input:")
-print(api_key)
-
 local url = "https://api.openai.com/v1/chat/completions"
 local body = {
     model = "gpt-3.5-turbo",
@@ -19,6 +16,13 @@ local headers = {
     Authorization = "Bearer " .. api_key 
 }
 
-local request = http.post(url, body_json, headers)
-print(request.readAll())
-request.close()
+print("Body:")
+print(body_json)
+
+local request, message = http.post(url, body_json, headers)
+if request == nil then
+    print("Error: "..message)
+else 
+    print(request.readAll())
+    request.close()
+end
