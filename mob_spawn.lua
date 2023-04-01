@@ -1,7 +1,7 @@
 local pretty = require("cc.pretty")
 
 local redstone_face = "front"
-local loop_delay = 1
+local loop_delay = 0.5
 
 local mob_colors = {
     Chicken = colors.white,
