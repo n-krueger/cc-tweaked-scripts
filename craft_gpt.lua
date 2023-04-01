@@ -17,14 +17,13 @@ local headers = {
 }
 headers["Content-Type"] = "application/json"
 
-print("Body:")
-print(body_json)
-
 local request, message, error_response = http.post(url, body_json, headers)
 if request == nil then
     print("Error: "..message)
     print(error_response.readAll())
-else 
-    print(request.readAll())
-    request.close()
 end
+request.close()
+
+local response = textutils.unserializeJSON(request.readAll())
+local message = response["choices"][0]["message"]["content"]
+print(message)
