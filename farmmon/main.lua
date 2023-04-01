@@ -25,13 +25,13 @@ local peripheral_spruce_4 = peripheral.wrap("forestry:farm_7")
 local farm_spruce_4 = Farm:new({ peripheral = peripheral_spruce_4 })
 
 print("===== Soil =====")
-pretty.print(pretty.pretty(farm_ender_1.list_soil()))
+pretty.print(pretty.pretty(farm_ender_1:list_soil()))
 
 print("===== Seed =====")
-pretty.print(pretty.pretty(farm_ender_1.list_seed()))
+pretty.print(pretty.pretty(farm_ender_1:list_seed()))
 
 print("===== Output =====")
-pretty.print(pretty.pretty(farm_ender_1.list_output()))
+pretty.print(pretty.pretty(farm_ender_1:list_output()))
 
 print("===== Fertilizer =====")
-pretty.print(pretty.pretty(farm_ender_1.get_fertilizer()))
+pretty.print(pretty.pretty(farm_ender_1:get_fertilizer()))
