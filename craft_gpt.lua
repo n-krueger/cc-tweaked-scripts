@@ -32,7 +32,6 @@ request.close()
 if response.choices == nil then
     textutils.slowPrint(response_json)
 else
-    local message = response.choices
-    print(type(message))
+    local message = response.choices[1].message.content
     textutils.slowPrint(message)
 end
