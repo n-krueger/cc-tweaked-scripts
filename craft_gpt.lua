@@ -25,11 +25,12 @@ if request == nil then
     print(error_response.readAll())
 end
 
-local response = textutils.unserializeJSON(request.readAll())
+local response_json = request.readAll()
+local response = textutils.unserializeJSON(response_json)
 request.close()
 
 if response.choices[0] == nil then
-    pretty.print(response)
+    textutils.slowPrint(response_json)
 else
     local message = response.choices[0].message.content
     textutils.slowPrint(message)
