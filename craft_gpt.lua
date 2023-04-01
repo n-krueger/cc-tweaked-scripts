@@ -15,6 +15,7 @@ local body_json = textutils.serializeJSON(body)
 local headers = {
     Authorization = "Bearer " .. api_key 
 }
+headers["Content-Type"] = "application/json"
 
 print("Body:")
 print(body_json)
