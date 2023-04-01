@@ -1,6 +1,9 @@
 print("Please enter ChatGPT API key:")
 local api_key = read("l")
 
+print("Your input:")
+print(api_key)
+
 local url = "https://api.openai.com/v1/chat/completions"
 local body = {
     model = "gpt-3.5-turbo",
