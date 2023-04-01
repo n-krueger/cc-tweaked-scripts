@@ -22,7 +22,7 @@ local mob_counts = {
 
 local mob_counts_remaining = {}
 for k, v in pairs(mob_counts) do
-    mob_counts[k] = v
+    mob_counts_remaining[k] = v
 end
 
 while true do
