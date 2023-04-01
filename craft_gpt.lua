@@ -1,6 +1,3 @@
-local textutils = require('textutils')
-local http = require('http')
-
 local api_key
 while api_key == "" do
     io.write("Please enter ChatGPT API key:")
