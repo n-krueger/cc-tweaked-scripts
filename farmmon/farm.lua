@@ -39,7 +39,7 @@ function Farm:_item_iter_counts(it)
             return acc
         end,
         {},
-        it
+        fun.filter(function(x) return x ~= nil end, it)
     )
 end
 
