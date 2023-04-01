@@ -1,8 +1,17 @@
 local fun = require("fun")
 
-local soil_slots = fun.totable(fun.range(1, 6))
-local seed_slots = fun.totable(fun.range(7, 12))
-local output_slots = fun.totable(fun.range(13, 20))
+local function soil_slots()
+    return fun.range(1, 6)
+end
+
+local function seed_slots()
+    return fun.range(7, 12)
+end
+
+local function output_slots()
+    fun.range(13, 20)
+end
+
 local fertilizer_slot = 21
 
 local Farm = {
@@ -19,21 +28,21 @@ end
 function Farm:list_soil()
     return fun.totable(fun.map(
         function(slot) self.peripheral.getItemMeta(slot) end,
-        soil_slots
+        soil_slots()
     ))
 end
 
 function Farm:list_seed()
     return fun.totable(fun.map(
         function(slot) self.peripheral.getItemMeta(slot) end,
-        seed_slots
+        seed_slots()
     ))
 end
 
 function Farm:list_output()
     return fun.totable(fun.map(
         function(slot) self.peripheral.getItemMeta(slot) end,
-        output_slots
+        output_slots()
     ))
 end
 
