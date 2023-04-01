@@ -29,17 +29,22 @@ local execution_count = 0
 for i=1,100 do
     print("i=" .. i)
 
-    print("===== Soil =====")
-    pretty.print(pretty.pretty(farm_ender_1:get_soil_counts()))
+    local soil_counts = farm_ender_1:get_soil_counts()
+    local seed_counts = farm_ender_1:get_seed_counts()
+    local output_counts = farm_ender_1:get_output_counts()
+    local fertilzer_count = farm_ender_1:get_fertilizer_count()
+    
+    -- print("===== Soil =====")
+    -- pretty.print(pretty.pretty(farm_ender_1:get_soil_counts()))
 
-    print("===== Seed =====")
-    pretty.print(pretty.pretty(farm_ender_1:get_seed_counts()))
+    -- print("===== Seed =====")
+    -- pretty.print(pretty.pretty(farm_ender_1:get_seed_counts()))
 
-    print("===== Output =====")
-    pretty.print(pretty.pretty(farm_ender_1:get_output_counts()))
+    -- print("===== Output =====")
+    -- pretty.print(pretty.pretty(farm_ender_1:get_output_counts()))
 
-    print("===== Fertilizer =====")
-    pretty.print(pretty.pretty(farm_ender_1:get_fertilizer_count()))
+    -- print("===== Fertilizer =====")
+    -- pretty.print(pretty.pretty(farm_ender_1:get_fertilizer_count()))
 
     sleep(0.049)
 end
