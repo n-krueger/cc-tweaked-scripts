@@ -48,4 +48,5 @@ while true do
     redstone.setBundledOutput(redstone_face, color_mask)
     sleep(loop_delay)
     redstone.setBundledOutput(redstone_face, 0)
+    sleep(loop_delay)
 end
