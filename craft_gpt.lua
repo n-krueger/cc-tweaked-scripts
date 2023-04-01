@@ -1,9 +1,5 @@
-local api_key
-while api_key == "" do
-    io.write("Please enter ChatGPT API key:")
-    io.flush()
-    api_key = io.read("l")
-end
+write("Please enter ChatGPT API key:")
+local api_key = read("l")
 
 local url = "https://api.openai.com/v1/chat/completions"
 local body = {
