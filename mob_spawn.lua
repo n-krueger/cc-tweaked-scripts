@@ -1,3 +1,5 @@
+local pretty = require("cc.pretty")
+
 local redstone_face = "front"
 
 local mob_colors = {
@@ -21,6 +23,9 @@ local mob_counts = {
 local mob_counts_remaining = {table.unpack(mob_counts)}
 
 while true do
+    print("Remaining:")
+    pretty.pretty_print(mob_counts_remaining)
+
     local color_mask = 0
 
     for mob, count in pairs(mob_counts_remaining) do
