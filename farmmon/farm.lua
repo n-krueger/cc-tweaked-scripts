@@ -9,7 +9,7 @@ local function seed_slots()
 end
 
 local function output_slots()
-    fun.range(13, 20)
+    return fun.range(13, 20)
 end
 
 local fertilizer_slot = 21
