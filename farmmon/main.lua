@@ -1,12 +1,37 @@
-local fun = require("fun")
 local pretty = require("cc.pretty")
+local fun = require("fun")
 
-local farm_ender_1 = peripheral.wrap("forestry:farm_1")
-local farm_barley_1 = peripheral.wrap("forestry:farm_2")
-local farm_wheat_1 = peripheral.wrap("forestry:farm_3")
-local farm_spruce_1 = peripheral.wrap("forestry:farm_4")
-local farm_spruce_2 = peripheral.wrap("forestry:farm_5")
-local farm_spruce_3 = peripheral.wrap("forestry:farm_6")
-local farm_spruce_4 = peripheral.wrap("forestry:farm_7")
+local Farm = require("farm")
 
-pretty.print(pretty.pretty(farm_ender_1))
+local peripheral_ender_1 = peripheral.wrap("forestry:farm_1")
+local farm_ender_1 = Farm:new({ peripheral = peripheral_ender_1 })
+
+local peripheral_barley_1 = peripheral.wrap("forestry:farm_2")
+local farm_barley_1 = Farm:new({ peripheral = peripheral_barley_1 })
+
+local peripheral_wheat_1 = peripheral.wrap("forestry:farm_3")
+local farm_wheat_1 = Farm:new({ peripheral = peripheral_wheat_1 })
+
+local peripheral_spruce_1 = peripheral.wrap("forestry:farm_4")
+local farm_spruce_1 = Farm:new({ peripheral = peripheral_spruce_1 })
+
+local peripheral_spruce_2 = peripheral.wrap("forestry:farm_5")
+local farm_spruce_2 = Farm:new({ peripheral = peripheral_spruce_2 })
+
+local peripheral_spruce_3 = peripheral.wrap("forestry:farm_6")
+local farm_spruce_3 = Farm:new({ peripheral = peripheral_spruce_3 })
+
+local peripheral_spruce_4 = peripheral.wrap("forestry:farm_7")
+local farm_spruce_4 = Farm:new({ peripheral = peripheral_spruce_4 })
+
+print("===== Soil =====")
+pretty.print(pretty.pretty(farm_ender_1.list_soil()))
+
+print("===== Seed =====")
+pretty.print(pretty.pretty(farm_ender_1.list_seed()))
+
+print("===== Output =====")
+pretty.print(pretty.pretty(farm_ender_1.list_output()))
+
+print("===== Fertilizer =====")
+pretty.print(pretty.pretty(farm_ender_1.get_fertilizer()))
