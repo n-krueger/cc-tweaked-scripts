@@ -24,7 +24,7 @@ local mob_counts_remaining = {table.unpack(mob_counts)}
 
 while true do
     print("Remaining:")
-    pretty.pretty_print(mob_counts_remaining)
+    pretty.print(pretty.pretty(mob_counts_remaining))
 
     local color_mask = 0
 
