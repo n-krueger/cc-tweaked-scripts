@@ -25,25 +25,35 @@ function Farm:new(o)
     return o
 end
 
-function Farm:list_soil()
-    return fun.totable(fun.map(
+function Farm:_iter_slots(slots)
+    return fun.map(
         function(slot) return self.peripheral.getItemMeta(slot) end,
-        soil_slots()
-    ))
+        slots
+    )
+end
+
+function Farm:iter_soil()
+    return self:_iter_slots(soil_slots())
+end
+
+function Farm:list_soil()
+    return fun.totable(self:iter_soil())
+end
+
+function Farm:iter_seed()
+    return self:_iter_slots(seed_slots())
 end
 
 function Farm:list_seed()
-    return fun.totable(fun.map(
-        function(slot) return self.peripheral.getItemMeta(slot) end,
-        seed_slots()
-    ))
+    return fun.totable(self:iter_seed())
+end
+
+function Farm:iter_output()
+    return self:_iter_slots(output_slots())
 end
 
 function Farm:list_output()
-    return fun.totable(fun.map(
-        function(slot) return self.peripheral.getItemMeta(slot) end,
-        output_slots()
-    ))
+    return fun.totable(self:iter_output())
 end
 
 function Farm:get_fertilizer()
