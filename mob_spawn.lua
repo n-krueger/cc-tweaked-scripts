@@ -20,7 +20,10 @@ local mob_counts = {
     Zombie = nil,
 }
 
-local mob_counts_remaining = {table.unpack(mob_counts)}
+local mob_counts_remaining = {}
+for k, v in pairs(mob_counts) do
+    mob_counts[k] = v
+end
 
 while true do
     print("Remaining:")
