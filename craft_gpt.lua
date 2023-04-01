@@ -22,8 +22,9 @@ if request == nil then
     print("Error: "..message)
     print(error_response.readAll())
 end
-request.close()
 
 local response = textutils.unserializeJSON(request.readAll())
+request.close()
+
 local message = response["choices"][0]["message"]["content"]
-print(message)
+textutils.slowPrint(message)
