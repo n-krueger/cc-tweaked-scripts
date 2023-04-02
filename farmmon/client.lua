@@ -30,7 +30,7 @@ end)
 
 local frame_width, frame_height = main_frame:getSize()
 local farm_frame_width = 24
-local farm_frame_height = 30
+local farm_frame_height = 16
 
 local n_cols = math.floor(frame_width / farm_frame_width)
 local n_rows = math.ceil(#farms / n_cols)
