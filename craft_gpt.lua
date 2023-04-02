@@ -65,8 +65,8 @@ while user_input ~= "exit" do
             print("Execution error:", err)
         end
         else
-            print("Compilation error, running as shell command. Error:", err)
-            shell.run(command)
+            -- print("Compilation error, running as shell command. Error:", err)
+            -- shell.run(command)
         end
     end
 
