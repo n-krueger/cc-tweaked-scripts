@@ -71,16 +71,16 @@ local function calculate_farm_aggregates()
                     local prev = farm_counts[key][i-1]
                     local diff = prev == nil
                         and {
-                            soil_counts = diff_tables(res.soil_counts, res.soil_counts),
-                            seed_counts = diff_tables(res.seed_counts, res.seed_counts),
-                            output_counts = diff_tables(res.output_counts, res.output_counts),
-                            fertilizer_count = 0,
+                            soil_diff = diff_tables(res.soil_counts, res.soil_counts),
+                            seed_diff = diff_tables(res.seed_counts, res.seed_counts),
+                            output_diff = diff_tables(res.output_counts, res.output_counts),
+                            fertilizer_diff = 0,
                         }
                         or {
-                            soil_counts = diff_tables(prev.soil_counts, res.soil_counts),
-                            seed_counts = diff_tables(prev.seed_counts, res.seed_counts),
-                            output_counts = diff_tables(prev.output_counts, res.output_counts),
-                            fertilizer_count = res.fertilizer_count - prev.fertilizer_count,
+                            soil_diff = diff_tables(prev.soil_counts, res.soil_counts),
+                            seed_diff = diff_tables(prev.seed_counts, res.seed_counts),
+                            output_diff = diff_tables(prev.output_counts, res.output_counts),
+                            fertilizer_diff = res.fertilizer_count - prev.fertilizer_count,
                         }
                     farm_diffs[key][i] = diff
                 end
@@ -93,56 +93,68 @@ local function calculate_farm_aggregates()
 
     local farm_aggregates = fun.iter(farms)
         :map(function(key, _)
-            return key, fun.iter(farm_diffs[key]):reduce(
+            local latest_counts = farm_counts[key][n_iters]
+            local diff_aggregate = fun.iter(farm_diffs[key]):reduce(
                 function(acc, x)
                     -- consumables are clamped to [-Inf, 0]
                     -- outputs are clamped to [0, Inf]
                     -- this is done to ignore effects on the counts caused by items being
                     -- piped into and out of the farm
                     local res = {
-                        soil_counts = sum_tables(
+                        soil_diff = sum_tables(
                             fun.tomap(fun.map(
                                 function(k, v) return k, math.min(v, 0) end,
-                                acc.soil_counts
+                                acc.soil_diff
                             )),
                             fun.tomap(fun.map(
                                 function(k, v) return k, math.min(v, 0) end,
-                                x.soil_counts
+                                x.soil_diff
                             ))
                         ),
-                        seed_counts = sum_tables(
+                        seed_diff = sum_tables(
                             fun.tomap(fun.map(
                                 function(k, v) return k, math.min(v, 0) end,
-                                acc.seed_counts
+                                acc.seed_diff
                             )),
                             fun.tomap(fun.map(
                                 function(k, v) return k, math.min(v, 0) end,
-                                x.seed_counts
+                                x.seed_diff
                             ))
                         ),
-                        output_counts = sum_tables(
+                        output_diff = sum_tables(
                             fun.tomap(fun.map(
                                 function(k, v) return k, math.max(v, 0) end,
-                                acc.output_counts
+                                acc.output_diff
                             )),
                             fun.tomap(fun.map(
                                 function(k, v) return k, math.max(v, 0) end,
-                                x.output_counts
+                                x.output_diff
                             ))
                         ),
-                        fertilizer_count = math.min(acc.fertilizer_count, 0)
-                            + math.min(x.fertilizer_count, 0)
+                        fertilizer_diff = math.min(acc.fertilizer_diff, 0)
+                            + math.min(x.fertilizer_diff, 0)
                     }
 
                     return res
                 end,
                 {
-                    soil_counts = {},
-                    seed_counts = {},
-                    output_counts = {},
-                    fertilizer_count = 0,
+                    soil_diff = {},
+                    seed_diff = {},
+                    output_diff = {},
+                    fertilizer_diff = 0,
                 }
             )
+
+            return key, {
+                soil_counts = latest_counts.soil_counts,
+                seed_counts = latest_counts.seed_counts,
+                output_counts = latest_counts.output_counts,
+                fertilizer_count = latest_counts.fertilizer_count,
+                soil_diff = diff_aggregate.soil_diff,
+                seed_diff = diff_aggregate.seed_diff,
+                output_diff = diff_aggregate.output_diff,
+                fertilizer_diff = diff_aggregate.fertilizer_diff,
+            }
         end)
         :tomap()
     
