@@ -62,7 +62,7 @@ local farm_frames = fun.iter(farms)
 
                 local fertilizer_count = aggregate.fertilizer_count
                 local fertilizer_indicator = content_frame:addFrame()
-                    :setSize(farm_frame_width, 2)
+                    :setSize(farm_frame_width - 2, 2)
                     :setPosition(2, (indicator_idx - 1) * 2 + 2)
                     :setBackground(colors.black)
                     :setForeground(colors.white)
