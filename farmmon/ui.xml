@@ -1,6 +1,0 @@
-<frame id="frame.left" width="parent.w * 0.5" bg="red" onEvent="farmAggregateHandler">
-    <button x="2" y="2" width="17" text="Example Button!"/>
-</frame>
-<frame id="frame.right" x="parent.w * 0.5 + 1" width="parent.w * 0.5 +1" bg="black" onEvent="farmAggregateHandler">
-    <textfield bg="green" x="2" width="parent.w-2" />
-</frame>

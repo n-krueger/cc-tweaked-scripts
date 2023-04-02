@@ -159,27 +159,20 @@ farm_update_thread:start(function()
     end
 end)
 
-local farm_aggregate_count = 0
-local function farmAggregateHandler(self, event, ...)
-    if event == "farm_aggregates" then
-        basalt.debug("self:getName(): " .. self:getName())
-        basalt.debug("frame.left name:" .. main_frame:getObject("frame.left"):getName())
-
-        local farm_aggregate = ...
-        farm_aggregate_count = farm_aggregate_count + 1
-        basalt.debug("Received 'farm_aggregates' " .. farm_aggregate_count .. " times")
-        basalt.debug("spruce_1 fertilizer_count:  " .. farm_aggregate.spruce_1.fertilizer_count)
-        
-    end
-end
-
-basalt.setVariable("farmAggregateHandler", farmAggregateHandler)
-
 local farm_frames = fun.iter(farms)
     :enumerate()
     :map(function(idx, key, _)
         local frame_id = "frame." .. key
-        
+
+        local function on_event_handler(self, event, ...)
+            if event == "farm_aggregates" then
+                local farm_aggregate = ...
+                
+                basalt.debug("self:getName(): " .. self:getName())
+                basalt.debug("fertilizer_count:  " .. farm_aggregate[key].fertilizer_count)
+            end
+        end
+
         local parent_width, parent_height = main_frame:getSize()
         local width = math.floor(parent_width / 7)
         local height = parent_height
@@ -190,6 +183,7 @@ local farm_frames = fun.iter(farms)
             :addFrame(frame_id)
             :setSize(width, height)
             :setPosition(pos_x, pos_y)
+            :onEvent(on_event_handler)
             :addLayout(fs.combine(base_dir, "farm_frame.xml"))
         
         local title_label = sub_frame:getObject("label.title")
