@@ -169,10 +169,15 @@ end
 basalt.setVariable("farmAggregateHandler", farmAggregateHandler)
 
 local farm_frames = fun.iter(farms)
-    :map(function(key, _)
+    :enumerate()
+    :map(function(idx, key, _)
+        local frame_id = "frame." .. key
+        basalt.setVariable(frame_id .. "idx", idx)
+
         local sub_frame = main_frame
-            :addFrame("frame." .. key)
+            :addFrame(frame_id)
             :setSize("math.floor(parent.w / 7)", "parent.h")
+            :setPosition("math.floor(parent.w / 7) * (" .. frame_id .. ".idx - 1", 1)
             :setBackground(colors.pink)
             :setBorder(colors.black)
             :addLayout(fs.combine(base_dir, "farm_frame.xml"))
