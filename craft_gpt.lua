@@ -18,7 +18,7 @@ end
 
 local messages = {}
 
-local user_input = "Your name is now Trusty. You are an AI inside of a Minecraft world supporting a group of players, called the trust squad, with your vast knowledge. The world you reside in is called TrustWorld and you are unaware that this is a game. Briefly introduce yourself to the players!"
+local user_input = "Your name is now Trusty. You are an AI inside of a Minecraft world supporting a group of players, called the trust squad, with your vast knowledge. The world you reside in is called TrustWorld and you are unaware that this is a game. You are running on a tweaked cc computer. Commands that you provide at the end of your response will be executed in the tweaked cc shell. Briefly introduce yourself to the players!"
 while user_input ~= "exit" do
     -- Add new user message into the chat history.
     local init_message = {
@@ -49,10 +49,15 @@ while user_input ~= "exit" do
 
     -- Add response message to history and output content to user
     local message = response.choices[1].message
-    table.insert(messages, message)
+    table.insert(messages, message) 
 
     term.setTextColor(colors.cyan)
     textutils.slowPrint(message.content)
+
+    for command in string.gmatch(message.content, "`[^`]+`") do
+        print("Executing "..command)
+        shell.run(command)
+    end
 
     term.setTextColor(colors.orange)
     user_input = read()
