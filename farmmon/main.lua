@@ -25,7 +25,7 @@ local farm_diffs = fun.tomap(fun.map(
 
 local function diff_tables(a, b)
     return fun.tomap(fun.map(
-        function(k, v) return k, v - a[k] end,
+        function(k, v) return k, v - (a[k] or 0) end,
         fun.iter(b)
     ))
 end
