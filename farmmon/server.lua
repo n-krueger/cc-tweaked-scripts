@@ -158,5 +158,9 @@ rednet.open("left")
 
 fun.range(1, n_iters):cycle():each(function(i)
     local farm_aggregates = calculate_farm_aggregates(i)
-    rednet.broadcast(farm_aggregates, protocol)
+
+    -- transmit update every 1s
+    if (i % 20 == 0) then
+        rednet.broadcast(farm_aggregates, protocol)
+    end
 end)
