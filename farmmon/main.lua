@@ -149,7 +149,10 @@ local function calculate_farm_aggregates()
     return farm_aggregates
 end
 
-local main_frame = basalt.createFrame():setMonitor("right", 0.5)
+local main_frame = basalt.createFrame()
+    :setMonitor("right", 0.5)
+    :setBackground(colors.black)
+    :setForeground(colors.white)
 
 local farm_update_thread = main_frame:addThread()
 farm_update_thread:start(function()
@@ -190,7 +193,7 @@ local farm_frames = fun.iter(farms)
             :addFrame(frame_id)
             :setSize(width, height)
             :setPosition(pos_x, pos_y)
-            :setBackground(random_color())
+            :setBackground(colors.black)
             :addLayout(fs.combine(base_dir, "farm_frame.xml"))
         
         local title_label = sub_frame:getObject("label.title")
