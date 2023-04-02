@@ -17,4 +17,6 @@
     fg="white"
     border="white"
 >
+    <label id="label.seed" x="1" y="1" width="parent.w" height="1" text="Seed" />
+    <progressbar id="progressbar.seed" x="1" y="2" width="parent.w" height="1" />
 </frame>
