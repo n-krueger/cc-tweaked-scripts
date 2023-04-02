@@ -97,7 +97,7 @@ local farm_frames = fun.iter(farms)
 
                         basalt.debug(item_name)
                         local label_title = indicator:getObject("label.title")
-                        label_title:setText(string.format("%s - %s", key, item_name))
+                        label_title:setText(item_name)
 
                         local label_data = indicator:getObject("label.data")
                         label_data:setText(string.format("%3d/%3d", count, max_count))
