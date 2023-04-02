@@ -19,8 +19,9 @@ local main_frame = basalt.createFrame():setMonitor("right", 0.5)
 local farm_update_thread = main_frame:addThread()
 farm_update_thread:start(function()
     while true do
-        local farm_aggregates = rednet.receive(protocol)
-        basalt.debug("Got message!")
+        local src_id, farm_aggregates = rednet.receive(protocol)
+
+        basalt.debug(string.format("Got message from %d", src_id))
         os.queueEvent("farm_aggregates", farm_aggregates)
     end
 end)
