@@ -191,7 +191,6 @@ local farm_frames = fun.iter(farms)
             :setSize(width, height)
             :setPosition(pos_x, pos_y)
             :setBackground(random_color())
-            :setBorder(colors.black)
             :addLayout(fs.combine(base_dir, "farm_frame.xml"))
         
         local title_label = sub_frame:getObject("label.title")
