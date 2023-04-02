@@ -14,12 +14,12 @@ local farms = {
 }
 
 local farm_counts = fun.tomap(fun.map(
-    function(key, farm) return k, {} end,
+    function(key, _) return key, {} end,
     fun.iter(farms)
 ))
 
 local farm_diffs = fun.tomap(fun.map(
-    function(key, farm) return k, {} end,
+    function(key, _) return key, {} end,
     fun.iter(farms)
 ))
 
@@ -35,7 +35,6 @@ for i=1,100 do
 
     local start_time = os.clock()
 
-    local results = {}
     local funcs = fun.totable(fun.map(
         function(key, farm)
             return function()
