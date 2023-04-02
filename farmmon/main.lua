@@ -201,6 +201,13 @@ local farm_frames = fun.iter(farms)
                 seed_label:setText(tostring(seed_count))
                 local seed_progressbar = self:getDeepObject("progressbar.seed")
                 seed_progressbar:setProgress(seed_perc)
+
+                local fertilizer_count = aggregate.fertilizer_count
+                local fertilizer_perc = (fertilizer_count / 64) * 100
+                local fertilizer_label = self:getDeepObject("label.fertilizer.data")
+                fertilizer_label:setText(tostring(fertilizer_count))
+                local fertilizer_progressbar = self:getDeepObject("progressbar.fertiilzer")
+                fertilizer_progressbar:setProgress(fertilizer_perc)
             end
         end
 
