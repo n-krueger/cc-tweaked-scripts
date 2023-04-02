@@ -19,7 +19,7 @@ for i=1,100 do
     local start_time = os.clock()
 
     local results = {}
-    local funcs = fun.map(
+    local funcs = fun.totable(fun.map(
         function(key, farm)
             return function()
                 farm:fetch()
@@ -33,9 +33,9 @@ for i=1,100 do
             end
         end,
         fun.iter(farms)
-    )
+    ))
 
-    parallel.waitForAll(funcs)
+    parallel.waitForAll(table.unpack(funcs))
     pretty.print(pretty.pretty(results))
 
     local end_time = os.clock()
