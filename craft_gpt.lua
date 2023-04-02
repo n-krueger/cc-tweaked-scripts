@@ -51,7 +51,7 @@ while user_input ~= "exit" do
     table.insert(messages, message) 
 
     term.setTextColor(colors.cyan)
-    textutils.slowPrint(message.content:gsub("`[^`]+`"))
+    textutils.slowPrint(message.content)
 
     for command in string.gmatch(message.content, "`[^`]+`") do
         print("Executing "..command)
