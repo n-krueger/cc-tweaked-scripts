@@ -172,12 +172,17 @@ local farm_frames = fun.iter(farms)
     :enumerate()
     :map(function(idx, key, _)
         local frame_id = "frame." .. key
-        basalt.setVariable(frame_id .. ".idx", idx)
+        
+        local parent_width, parent_height = main_frame.getSize()
+        local width = math.floor(parent.w / 7)
+        local height = parent_height
+        local pos_x = (idx - 1) * width + 1
+        local pos_y = 1
 
         local sub_frame = main_frame
             :addFrame(frame_id)
-            :setSize("math.floor(parent.w / 7)", "parent.h")
-            :setPosition("math.floor(parent.w / 7) * (" .. frame_id .. ".idx - 1)", 1)
+            :setSize(width, height)
+            :setPosition(pos_x, pos_y)
             :setBackground(colors.pink)
             :setBorder(colors.black)
             :addLayout(fs.combine(base_dir, "farm_frame.xml"))
