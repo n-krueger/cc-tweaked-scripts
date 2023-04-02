@@ -68,7 +68,7 @@ local farm_frames = fun.iter(farms)
                 indicators[indicator_idx] = fertilizer_indicator
                 indicator_idx = indicator_idx + 1
 
-                local fertilizer_label_title = fertilizer_indicator.getObject("label.title")
+                local fertilizer_label_title = fertilizer_indicator:getObject("label.title")
                 fertilizer_label_title:setText("Fertilizer")
                 
                 local fertilizer_label_data = fertilizer_indicator:getObject("label.data")
@@ -91,13 +91,13 @@ local farm_frames = fun.iter(farms)
                         indicators[indicator_idx] = indicator
                         indicator_idx = indicator_idx + 1
 
-                        local label_title = indicator.getObject("label.title")
+                        local label_title = indicator:getObject("label.title")
                         label_title:setText(string.format("%s - %s", key, item_name))
 
-                        local label_data = indicator.getObject("label.data")
+                        local label_data = indicator:getObject("label.data")
                         label_data:setText(string.format("%3d/%3d", count, max_count))
 
-                        local progressbar = indicator.getObject("progressbar")
+                        local progressbar = indicator:getObject("progressbar")
                         progressbar:setProgress((count / max_count) * 100)
                     end)
                 end)
