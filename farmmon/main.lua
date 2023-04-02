@@ -4,7 +4,7 @@ local fun = require("fun")
 
 local Farm = require("farm")
 
-local runtime = 60
+local runtime = 10
 local n_iters = runtime * 20
 
 local farms = {
@@ -137,6 +137,8 @@ local function calculate_farm_aggregates()
             )
         end)
         :tomap()
+    
+    return farm_aggregates
 end
 
 local main_frame = basalt.createFrame()
@@ -144,16 +146,17 @@ local main_frame = basalt.createFrame()
 local farm_update_thread = main_frame:addThread()
 farm_update_thread:start(function()
     while true do
-        calculate_farm_aggregates()
-        os.queueEvent("farm_aggregates")
+        local farm_aggregates = calculate_farm_aggregates()
+        os.queueEvent("farm_aggregates", farm_aggregates)
     end
 end)
 
 local farm_aggregate_count = 0
-basalt.onEvent(function(event)
+basalt.onEvent(function(event, value)
     if event == "farm_aggregates" then
         farm_aggregate_count = farm_aggregate_count + 1
         basalt.debug("Received 'farm_aggregates' " .. farm_aggregate_count .. " times")
+        basalt.debug("value is " .. value)
     end
 end)
 
