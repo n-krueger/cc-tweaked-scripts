@@ -61,14 +61,16 @@ while user_input ~= "exit" do
         local func, err = load(command)
         if func then
             local ok, res = pcall(func)
-            if ok and res ~= nil then
-                term.setTextColor(colors.green)
-                local command_message = {
-                    role = "user",
-                    content = "The terminal showed this output for your command: " .. res
-                }
-                table.insert(messages, command_message) 
-                print(res)
+            if ok then
+                if res ~= nil then
+                    term.setTextColor(colors.green)
+                    local command_message = {
+                        role = "user",
+                        content = "The terminal showed this output for your command: " .. tostring(res)
+                    }
+                    table.insert(messages, command_message) 
+                    print(tostring(res))
+                end
             else
                 term.setTextColor(colors.green)
                 print("Execution error:", res)
