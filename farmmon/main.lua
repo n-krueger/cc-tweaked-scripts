@@ -182,5 +182,6 @@ local farm_frames = fun.iter(farms)
 
         return sub_frame
     end)
+    :tomap()
 
 basalt.autoUpdate()
