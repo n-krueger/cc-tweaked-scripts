@@ -2,6 +2,8 @@ local pretty = require("cc.pretty")
 
 local url = "https://api.openai.com/v1/chat/completions"
 
+term.clear()
+
 -- Get an API key
 local api_key
 local key_file, err = io.open("./gpt-key.txt", "r")
