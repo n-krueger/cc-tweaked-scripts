@@ -17,6 +17,7 @@ local farms = {
 peripheral.find("modem", rednet.open)
 
 local main_frame = basalt.createFrame():setMonitor("right", 0.5)
+
 local farm_update_thread = main_frame:addThread()
 farm_update_thread:start(function()
     while true do
@@ -27,9 +28,18 @@ farm_update_thread:start(function()
     end
 end)
 
+local frame_width, frame_height = main_frame:getSize()
+local farm_frame_width = 24
+local farm_frame_height = 30
+
+local n_cols = math.floor(frame_width / farm_frame_width)
+local n_rows = math.ceil(#farms / n_cols)
+
 local farm_frames = fun.iter(farms)
     :enumerate()
     :map(function(idx, key, _)
+        local col_idx = idx % n_cols + 1
+        local row_idx = math.floor(idx / n_rows) + 1
         local frame_id = "frame." .. key
 
         local function on_event_handler(self, event, ...)
@@ -67,15 +77,12 @@ local farm_frames = fun.iter(farms)
             end
         end
 
-        local parent_width, parent_height = main_frame:getSize()
-        local width = math.floor(parent_width / 7)
-        local height = parent_height
-        local pos_x = (idx - 1) * width + 1
-        local pos_y = 1
+        local pos_x = (col_idx - 1) * farm_frame_width + 1
+        local pos_y = (row_idx - 1) * farm_frame_height + 1
 
         local sub_frame = main_frame
             :addFrame(frame_id)
-            :setSize(width, height)
+            :setSize(farm_frame_width, farm_frame_height)
             :setPosition(pos_x, pos_y)
             :onEvent(on_event_handler)
             :addLayout(fs.combine(base_dir, "farm_frame.xml"))
