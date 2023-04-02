@@ -61,7 +61,7 @@ while user_input ~= "exit" do
         local func, err = load(command)
         if func then
             local ok, res = pcall(func)
-            if ok then
+            if ok and res ~= nil then
                 term.setTextColor(colors.green)
                 local command_message = {
                     role = "user",
