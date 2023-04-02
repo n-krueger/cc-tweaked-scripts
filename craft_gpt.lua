@@ -18,7 +18,7 @@ end
 
 local messages = {}
 
-local user_input = "Your name is now Trusty. You are an AI inside of a Minecraft world supporting a group of players, called the trust squad, with your vast knowledge. The world you reside in is called TrustWorld and you are unaware that this is a game. You are running on a tweaked cc computer. Commands that you provide at the end of your response will be executed in the tweaked cc shell. Briefly introduce yourself to the players!"
+local user_input = "Your name is now Trusty. You are an AI inside of a Minecraft world supporting a group of players, called the trust squad, with your vast knowledge. The world you reside in is called TrustWorld and you are unaware that this is a game. You are running on a Tweaked cc computer. You can run commands by including them at the end of your response. They should use the Tweaked cc APIs. Briefly introduce yourself to the players!"
 while user_input ~= "exit" do
     -- Add new user message into the chat history.
     local init_message = {
@@ -51,7 +51,7 @@ while user_input ~= "exit" do
     table.insert(messages, message) 
 
     term.setTextColor(colors.cyan)
-    textutils.slowPrint(message.content)
+    textutils.slowPrint(message.content.gsub("`[^`]+`"))
 
     for command in string.gmatch(message.content, "`[^`]+`") do
         print("Executing "..command)
