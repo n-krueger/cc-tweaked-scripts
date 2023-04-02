@@ -184,11 +184,19 @@ local farm_frames = fun.iter(farms)
                 basalt.debug("self:getName(): " .. self:getName())
                 basalt.debug("fertilizer_count:  " .. aggregate.fertilizer_count)
 
+                local soil_count = fun.iter(aggregate.soil_counts)
+                    :map(function(k, v) return v end)
+                    :sum()
+                local soil_perc = (soil_count / (6 * 64)) * 100
+                local soil_label = self:getDeepObject("label.soil.data")
+                soil_label:setText(tostring(soil_count))
+                local soil_progressbar = self:getDeepObject("progressbar.soil")
+                soil_progressbar:setProgress(soil_perc)
+
                 local seed_count = fun.iter(aggregate.seed_counts)
                     :map(function(k, v) return v end)
                     :sum()
                 local seed_perc = (seed_count / (6 * 64)) * 100
-                
                 local seed_label = self:getDeepObject("label.seed.data")
                 seed_label:setText(tostring(seed_count))
                 local seed_progressbar = self:getDeepObject("progressbar.seed")

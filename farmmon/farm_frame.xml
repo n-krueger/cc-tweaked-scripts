@@ -18,15 +18,15 @@
     border="white"
 >
     <label
-        id="label.seed.title"
+        id="label.soil.title"
         x="2"
         y="2"
         width="(parent.w - 2) / 2"
         height="1"
-        text="Seed"
+        text="Soil"
     />
     <label
-        id="label.seed.data"
+        id="label.soil.data"
         x="parent.w / 2 + 1"
         y="2"
         width="(parent.w - 2) / 2"
@@ -35,9 +35,87 @@
         text="TEST"
     />
     <progressbar
-        id="progressbar.seed"
+        id="progressbar.soil"
         x="2"
         y="3"
+        width="parent.w - 2"
+        height="1"
+        bg="gray"
+        progressColor="white"
+    />
+    <label
+        id="label.seed.title"
+        x="2"
+        y="4"
+        width="(parent.w - 2) / 2"
+        height="1"
+        text="Seed"
+    />
+    <label
+        id="label.seed.data"
+        x="parent.w / 2 + 1"
+        y="4"
+        width="(parent.w - 2) / 2"
+        height="1"
+        horizontalAlign="right"
+        text="TEST"
+    />
+    <progressbar
+        id="progressbar.seed"
+        x="2"
+        y="5"
+        width="parent.w - 2"
+        height="1"
+        bg="gray"
+        progressColor="white"
+    />
+    <label
+        id="label.output.title"
+        x="2"
+        y="6"
+        width="(parent.w - 2) / 2"
+        height="1"
+        text="Output"
+    />
+    <label
+        id="label.output.data"
+        x="parent.w / 2 + 1"
+        y="6"
+        width="(parent.w - 2) / 2"
+        height="1"
+        horizontalAlign="right"
+        text="TEST"
+    />
+    <progressbar
+        id="progressbar.output"
+        x="2"
+        y="7"
+        width="parent.w - 2"
+        height="1"
+        bg="gray"
+        progressColor="white"
+    />
+        <label
+        id="label.fertilizer.title"
+        x="2"
+        y="6"
+        width="(parent.w - 2) / 2"
+        height="1"
+        text="Fertilizer"
+    />
+    <label
+        id="label.fertilizer.data"
+        x="parent.w / 2 + 1"
+        y="6"
+        width="(parent.w - 2) / 2"
+        height="1"
+        horizontalAlign="right"
+        text="TEST"
+    />
+    <progressbar
+        id="progressbar.fertilizer"
+        x="2"
+        y="7"
         width="parent.w - 2"
         height="1"
         bg="gray"
