@@ -142,8 +142,8 @@ local function calculate_farm_aggregates()
 end
 
 local main_frame = basalt.createFrame()
-    :addLayout("ui.xml")
     :setMonitor("right")
+    :addLayout("ui.xml")
 
 local farm_update_thread = main_frame:addThread()
 farm_update_thread:start(function()
