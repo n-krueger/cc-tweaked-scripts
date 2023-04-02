@@ -38,8 +38,8 @@ local n_rows = math.ceil(#farms / n_cols)
 local farm_frames = fun.iter(farms)
     :enumerate()
     :map(function(idx, key, _)
-        local col_idx = idx % n_cols + 1
-        local row_idx = math.floor(idx / n_rows) + 1
+        local col_idx = (idx - 1) % n_cols + 1
+        local row_idx = math.floor((idx - 1) / n_rows) + 1
         local frame_id = "frame." .. key
 
         local function on_event_handler(self, event, ...)
