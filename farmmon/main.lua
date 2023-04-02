@@ -80,6 +80,7 @@ while true do
             end)
             :totable()
     
+        -- need to parallelize because Farm:fetch() blocks for 1 tick (0.05s)
         parallel.waitForAll(table.unpack(funcs))
     end
 
@@ -87,6 +88,10 @@ while true do
         :map(function(key, _)
             return key, fun.iter(farm_diffs[key]):reduce(
                 function(acc, x)
+                    -- consumables are clamped to [-Inf, 0]
+                    -- outputs are clamped to [0, Inf]
+                    -- this is done to ignore effects on the counts caused by items being
+                    -- piped into and out of the farm
                     local res = {
                         soil_counts = sum_tables(
                             fun.tomap(fun.map(
