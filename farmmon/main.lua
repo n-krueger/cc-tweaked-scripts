@@ -173,6 +173,8 @@ local farm_frames = fun.iter(farms)
         local sub_frame = main_frame
             :addFrame("frame." .. key)
             :setSize("math.floor(parent.w / 7)", "parent.h")
+            :setBackground(colors.pink)
+            :setBorder(colors.black)
             :addLayout(fs.combine(base_dir, "farm_frame.xml"))
         
         local title_label = sub_frame:getObject("label.title")
