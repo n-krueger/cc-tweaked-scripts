@@ -1,17 +1,27 @@
 local pretty = require("cc.pretty")
 
-print("Please enter ChatGPT API key:")
-local api_key = read("l")
+local api_key
+local key_file, err = io.open("./gpt-key.txt", "r")
+if err == nil then
+    api_key = key_file:read("l")
+    key_file:close()
+else
+    print("Please enter ChatGPT API key:")
+    api_key = read("l")
+end
+
+local messages = {}
+local init_message = {
+    role = "user",
+    content = "Your name is now Trusty. You are an advanced AI inside of a Minecraft world supporting the players with your vast knowledge. Please briefly introduce yourself."
+}
+
+table.insert(messages, init_message)
 
 local url = "https://api.openai.com/v1/chat/completions"
 local body = {
     model = "gpt-3.5-turbo",
-    messages = {
-        {
-            role = "user",
-            content = "Your name is now Trusty. You are an advanced AI inside of a Minecraft world supporting the players with your vast knowledge. Please briefly introduce yourself."
-        }
-    }
+    messages = messages
 }
 local body_json = textutils.serializeJSON(body)
 local headers = {
