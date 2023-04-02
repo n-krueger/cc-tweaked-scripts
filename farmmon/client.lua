@@ -64,6 +64,8 @@ local farm_frames = fun.iter(farms)
                 local fertilizer_indicator = content_frame:addFrame()
                     :setSize(farm_frame_width, 2)
                     :setPosition(2, (indicator_idx - 1) * 2 + 2)
+                    :setBackground(colors.black)
+                    :setForeground(colors.white)
                     :addLayout(fs.combine(base_dir, "indicator_frame.xml"))
                 indicators[indicator_idx] = fertilizer_indicator
                 indicator_idx = indicator_idx + 1
@@ -87,6 +89,8 @@ local farm_frames = fun.iter(farms)
                         local indicator = content_frame:addFrame()
                             :setSize(farm_frame_width, 2)
                             :setPosition(2, (indicator_idx - 1) * 2 + 2)
+                            :setBackground(colors.black)
+                            :setForeground(colors.white)
                             :addLayout(fs.combine(base_dir, "indicator_frame.xml"))
                         indicators[indicator_idx] = indicator
                         indicator_idx = indicator_idx + 1
