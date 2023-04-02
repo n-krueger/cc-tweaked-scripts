@@ -1,13 +1,19 @@
 local fun = require("fun")
 
+local soil_slots_start = 1
+local soil_slots_end = 6
 local function soil_slots()
     return fun.range(1, 6)
 end
 
+local seed_slots_start = 7
+local seed_slots_end = 12
 local function seed_slots()
     return fun.range(7, 12)
 end
 
+local output_slots_start = 13
+local output_slots_end = 20
 local function output_slots()
     return fun.range(13, 20)
 end
@@ -16,6 +22,7 @@ local fertilizer_slot = 21
 
 local Farm = {
     peripheral = nil,
+    _items = nil
 }
 
 function Farm:new(o)
@@ -25,9 +32,13 @@ function Farm:new(o)
     return o
 end
 
+function Farm:fetch()
+    self._items = self.peripheral.list()
+end
+
 function Farm:_iter_slots(slots)
     return fun.map(
-        function(slot) return self.peripheral.getItemMeta(slot) end,
+        function(slot) return self._items[slot] end,
         slots
     )
 end
@@ -80,7 +91,7 @@ function Farm:get_output_counts()
 end
 
 function Farm:get_fertilizer()
-    return self.peripheral.getItemMeta(fertilizer_slot)
+    return self._items[fertilizer_slot]
 end
 
 function Farm:get_fertilizer_count()
