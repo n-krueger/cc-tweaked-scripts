@@ -25,6 +25,18 @@ local item_pretty_names = {
     ["minecraft:ender_pearl"] = "Ender Pearl",
 }
 
+local item_colors = {
+    ["minecraft:dirt"] = colors.brown,
+    ["minecraft:end_stone"] = colors.lightGray,
+    ["minecraft:sapling"] = colors.green,
+    ["minecraft:wheat_seeds"] = colors.lime,
+    ["natura:overworld_seeds"] = colors.yellow,
+    ["extrautils2:enderlilly"] = colors.blue,
+    ["minecraft:log"] = colors.brown,
+    ["minecraft:wheat"] = colors.yellow,
+    ["minecraft:ender_pearl"] = colors.cyan,
+}
+
 -- open all connected modems for rednet
 peripheral.find("modem", rednet.open)
 
@@ -89,6 +101,7 @@ local farm_frames = fun.iter(farms)
                 fertilizer_label_data:setText(string.format("%3d/%3d", fertilizer_count, 64))
                 
                 local fertilizer_progressbar = fertilizer_indicator:getObject("progressbar")
+                fertilizer_progressbar:setProgressBar(colors.lightBlue)
                 fertilizer_progressbar:setProgress((fertilizer_count / 64) * 100)
 
                 local indicator_iterator = fun.zip(
@@ -115,6 +128,7 @@ local farm_frames = fun.iter(farms)
                         label_data:setText(string.format("%3d/%3d", count, max_count))
 
                         local progressbar = indicator:getObject("progressbar")
+                        progressbar:setProgressBar(item_colors[item_name] or colors.white)
                         progressbar:setProgress((count / max_count) * 100)
                     end)
                 end)
