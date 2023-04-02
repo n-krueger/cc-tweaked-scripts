@@ -179,6 +179,8 @@ local farm_frames = fun.iter(farms)
         
         local title_label = sub_frame:getObject("label.title")
         title_label:setText(key)
+
+        return sub_frame
     end)
 
 basalt.autoUpdate()
