@@ -1,4 +1,4 @@
-local fun = require("fun")
+local fun = require("libs.fun")
 local Farm = require("farm")
 
 local moving_average_duration = 10

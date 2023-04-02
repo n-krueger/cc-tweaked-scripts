@@ -1,5 +1,5 @@
-local basalt = require("basalt")
-local fun = require("fun")
+local basalt = require("libs.basalt")
+local fun = require("libs.fun")
 
 local base_dir = fs.getDir(shell.getRunningProgram())
 local protocol = "farmmon"
