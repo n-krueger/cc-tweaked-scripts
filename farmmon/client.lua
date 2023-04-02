@@ -13,7 +13,8 @@ local farms = {
     "spruce_4",
 }
 
-rednet.open("left")
+-- open all connected modems for rednet
+peripheral.find("modem", rednet.open)
 
 local main_frame = basalt.createFrame():setMonitor("right", 0.5)
 local farm_update_thread = main_frame:addThread()
