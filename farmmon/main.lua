@@ -17,10 +17,9 @@ local farm_counts = fun.iter(farms)
     :map(function(key, _) return key, {} end)
     :tomap()
 
-local farm_diffs = fun.tomap(fun.map(
-    function(key, _) return key, {} end,
-    fun.iter(farms)
-))
+local farm_diffs = fun.iter(farms)
+    :map(function(key, _) return key, {} end)
+    :tomap()
 
 local function sum_tables(a, b)
     local res = {}
@@ -37,10 +36,9 @@ local function sum_tables(a, b)
 end
 
 local function diff_tables(a, b)
-    return fun.tomap(fun.map(
-        function(k, v) return k, v - (a[k] or 0) end,
-        fun.iter(b)
-    ))
+    return fun.iter(b)
+        :map(function(k, v) return k, v - (a[k] or 0) end)
+        :tomap()
 end
 
 local runtime = 20
@@ -50,8 +48,8 @@ while true do
     print("Collecting data for " .. runtime .. "s...")
 
     for i=1,n_iters do
-        local funcs = fun.totable(fun.map(
-            function(key, farm)
+        local funcs = fun.iter(farms)
+            :map(function(key, farm)
                 return function()
                     farm:fetch()
                     
@@ -79,16 +77,15 @@ while true do
                         }
                     farm_diffs[key][i] = diff
                 end
-            end,
-            fun.iter(farms)
-        ))
+            end)
+            :totable()
     
         parallel.waitForAll(table.unpack(funcs))
     end
 
-    local farm_aggregates = fun.tomap(fun.map(
-        function(key, _)
-            return key, fun.reduce(
+    local farm_aggregates = fun.iter(farms)
+        :map(function(key, _)
+            return key, fun.iter(farm_diffs[key]):reduce(
                 function(acc, x)
                     local res = {
                         soil_counts = sum_tables(
@@ -132,12 +129,10 @@ while true do
                     seed_counts = {},
                     output_counts = {},
                     fertilizer_count = 0,
-                },
-                fun.iter(farm_diffs[key])
+                }
             )
-        end,
-        fun.iter(farms)
-    ))
+        end)
+        :tomap()
 
     pretty.print(pretty.pretty(farm_aggregates))
 end

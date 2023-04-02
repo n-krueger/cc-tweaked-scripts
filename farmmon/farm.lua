@@ -1,19 +1,13 @@
 local fun = require("fun")
 
-local soil_slots_start = 1
-local soil_slots_end = 6
 local function soil_slots()
     return fun.range(1, 6)
 end
 
-local seed_slots_start = 7
-local seed_slots_end = 12
 local function seed_slots()
     return fun.range(7, 12)
 end
 
-local output_slots_start = 13
-local output_slots_end = 20
 local function output_slots()
     return fun.range(13, 20)
 end
@@ -37,21 +31,19 @@ function Farm:fetch()
 end
 
 function Farm:_iter_slots(slots)
-    return fun.map(
-        function(slot) return self._items[slot] end,
-        slots
-    )
+    return slots:map(function(slot) return self._items[slot] end)
 end
 
 function Farm:_item_iter_counts(it)
-    return fun.reduce(
-        function(acc, item_meta)
-            acc[item_meta.name] = (acc[item_meta.name] or 0) + item_meta.count
-            return acc
-        end,
-        {},
-        fun.filter(function(x) return x ~= nil end, it)
-    )
+    return it
+        :filter(function(x) return x ~= nil end)
+        :reduce(
+            function(acc, item_meta)
+                acc[item_meta.name] = (acc[item_meta.name] or 0) + item_meta.count
+                return acc
+            end,
+            {}
+        )
 end
 
 function Farm:iter_soil()
