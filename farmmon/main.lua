@@ -13,10 +13,9 @@ local farms = {
     spruce_4 = Farm:new({ peripheral = peripheral.wrap("forestry:farm_7") }),
 }
 
-local farm_counts = fun.tomap(fun.map(
-    function(key, _) return key, {} end,
-    fun.iter(farms)
-))
+local farm_counts = fun.iter(farms)
+    :map(function(key, _) return key, {} end)
+    :tomap()
 
 local farm_diffs = fun.tomap(fun.map(
     function(key, _) return key, {} end,
