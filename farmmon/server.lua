@@ -1,7 +1,7 @@
 local fun = require("fun")
 local Farm = require("farm")
 
-local moving_average_duration = 60
+local moving_average_duration = 10
 local n_iters = moving_average_duration * 20
 local protocol = "farmmon"
 
@@ -162,5 +162,5 @@ while true do
     local farm_aggregates = calculate_farm_aggregates()
     local farm_aggregates_text = textutils.serialize(farm_aggregates, { compact = true })
     print(farm_aggregates_text)
-    rednet.broadcast(farm_aggregates_text, protocol)
+    rednet.broadcast(farm_aggregates, protocol)
 end
