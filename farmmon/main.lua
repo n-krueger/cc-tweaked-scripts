@@ -20,6 +20,7 @@ local farm_update_thread = main_frame:addThread()
 farm_update_thread:start(function()
     while true do
         local farm_aggregates = rednet.receive(protocol)
+        basalt.debug("Got message!")
         os.queueEvent("farm_aggregates", farm_aggregates)
     end
 end)
