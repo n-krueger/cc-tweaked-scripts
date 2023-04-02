@@ -13,6 +13,18 @@ local farms = {
     "spruce_4",
 }
 
+local item_pretty_names = {
+    ["minecraft:dirt"] = "Dirt",
+    ["minecraft:end_stone"] = "End_Stone",
+    ["minecraft:sapling"] = "Sapling",
+    ["minecraft:wheat_seeds"] = "Wheat Seeds",
+    ["natura:overworld_seeds"] = "Barley Seeds",
+    ["extrautils2:enderlilly"] = "Ender Lilly",
+    ["minecraft:log"] = "Wood",
+    ["minecraft:wheat"] = "Wheat",
+    ["minecraft:ender_pearl"] = "Ender Pearl",
+}
+
 -- open all connected modems for rednet
 peripheral.find("modem", rednet.open)
 
@@ -97,7 +109,7 @@ local farm_frames = fun.iter(farms)
 
                         basalt.debug(item_name)
                         local label_title = indicator:getObject("label.title")
-                        label_title:setText(item_name)
+                        label_title:setText(item_pretty_names[item_name] or item_name)
 
                         local label_data = indicator:getObject("label.data")
                         label_data:setText(string.format("%3d/%3d", count, max_count))
