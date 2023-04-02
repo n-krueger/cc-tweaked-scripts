@@ -48,14 +48,14 @@ while user_input ~= "exit" do
 
     -- Add response message to history and output content to user
     local message = response.choices[1].message
+    local content = message.content .. ""
+    message.content = message.content.gsub('"', '\"')
     table.insert(messages, message) 
 
     term.setTextColor(colors.cyan)
-    textutils.slowPrint(message.content)
+    textutils.slowPrint(content)
 
-    for command in string.gmatch(message.content, "`[^`]+`") do
-        print("Executing "..command)
-        
+    for command in string.gmatch(content, "`[^`]+`") do
         command = command:gsub("`", "")
 
         local func, err = load(command)
