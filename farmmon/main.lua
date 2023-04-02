@@ -3,51 +3,40 @@ local fun = require("fun")
 
 local Farm = require("farm")
 
-local peripheral_ender_1 = peripheral.wrap("forestry:farm_1")
-local farm_ender_1 = Farm:new({ peripheral = peripheral_ender_1 })
-
-local peripheral_barley_1 = peripheral.wrap("forestry:farm_2")
-local farm_barley_1 = Farm:new({ peripheral = peripheral_barley_1 })
-
-local peripheral_wheat_1 = peripheral.wrap("forestry:farm_3")
-local farm_wheat_1 = Farm:new({ peripheral = peripheral_wheat_1 })
-
-local peripheral_spruce_1 = peripheral.wrap("forestry:farm_4")
-local farm_spruce_1 = Farm:new({ peripheral = peripheral_spruce_1 })
-
-local peripheral_spruce_2 = peripheral.wrap("forestry:farm_5")
-local farm_spruce_2 = Farm:new({ peripheral = peripheral_spruce_2 })
-
-local peripheral_spruce_3 = peripheral.wrap("forestry:farm_6")
-local farm_spruce_3 = Farm:new({ peripheral = peripheral_spruce_3 })
-
-local peripheral_spruce_4 = peripheral.wrap("forestry:farm_7")
-local farm_spruce_4 = Farm:new({ peripheral = peripheral_spruce_4 })
-
-local execution_count = 0
+local farms = {
+    ender_1 = Farm:new({ peripheral = peripheral.wrap("forestry:farm_1") }),
+    barley_1 = Farm:new({ peripheral = peripheral.wrap("forestry:farm_2") }),
+    wheat_1 = Farm:new({ peripheral = peripheral.wrap("forestry:farm_3") }),
+    spruce_1 = Farm:new({ peripheral = peripheral.wrap("forestry:farm_4") }),
+    spruce_2 = Farm:new({ peripheral = peripheral.wrap("forestry:farm_5") }),
+    spruce_3 = Farm:new({ peripheral = peripheral.wrap("forestry:farm_6") }),
+    spruce_4 = Farm:new({ peripheral = peripheral.wrap("forestry:farm_7") }),
+}
 
 for i=1,100 do
     print("i=" .. i)
 
     local start_time = os.clock()
 
-    farm_ender_1:fetch()
-    local soil_counts = farm_ender_1:get_soil_counts()
-    local seed_counts = farm_ender_1:get_seed_counts()
-    local output_counts = farm_ender_1:get_output_counts()
-    local fertilzer_count = farm_ender_1:get_fertilizer_count()
-    
-    print("===== Soil =====")
-    pretty.print(pretty.pretty(farm_ender_1:get_soil_counts()))
+    local results = {}
+    local funcs = fun.map(
+        function(key, farm)
+            return function()
+                farm:fetch()
+                local res = {
+                    soil_counts = farm:get_soil_counts(),
+                    seed_counts = farm:get_seed_counts(),
+                    output_counts = farm:get_output_counts(),
+                    fertilizer_count = farm:get_fertilizer_count(),
+                }
+                results[key] = res
+            end
+        end,
+        fun.iter(farms)
+    )
 
-    print("===== Seed =====")
-    pretty.print(pretty.pretty(farm_ender_1:get_seed_counts()))
-
-    print("===== Output =====")
-    pretty.print(pretty.pretty(farm_ender_1:get_output_counts()))
-
-    print("===== Fertilizer =====")
-    pretty.print(pretty.pretty(farm_ender_1:get_fertilizer_count()))
+    parallel.waitForAll(funcs)
+    pretty.print(pretty.pretty(results))
 
     local end_time = os.clock()
     print("Execution time: " .. (end_time - start_time))
