@@ -1,7 +1,7 @@
 local fun = require("libs.fun")
 local Farm = require("farm")
 
-local moving_average_duration = 10
+local moving_average_duration = 60
 local n_iters = moving_average_duration * 20
 local protocol = "farmmon"
 
@@ -43,47 +43,45 @@ local function diff_tables(a, b)
         :tomap()
 end
 
-local function calculate_farm_aggregates()
-    for i=1,n_iters do
-        local funcs = fun.iter(farms)
-            :map(function(key, farm)
-                return function()
-                    farm:fetch()
-                    
-                    local res = {
-                        soil_counts = farm:get_soil_counts(),
-                        seed_counts = farm:get_seed_counts(),
-                        output_counts = farm:get_output_counts(),
-                        fertilizer_count = farm:get_fertilizer_count(),
+local function calculate_farm_aggregates(i)
+    local funcs = fun.iter(farms)
+        :map(function(key, farm)
+            return function()
+                farm:fetch()
+                
+                local res = {
+                    soil_counts = farm:get_soil_counts(),
+                    seed_counts = farm:get_seed_counts(),
+                    output_counts = farm:get_output_counts(),
+                    fertilizer_count = farm:get_fertilizer_count(),
+                }
+                farm_counts[key][i] = res
+
+                local prev = farm_counts[key][i-1]
+                local diff = prev == nil
+                    and {
+                        soil_diff = diff_tables(res.soil_counts, res.soil_counts),
+                        seed_diff = diff_tables(res.seed_counts, res.seed_counts),
+                        output_diff = diff_tables(res.output_counts, res.output_counts),
+                        fertilizer_diff = 0,
                     }
-                    farm_counts[key][i] = res
-    
-                    local prev = farm_counts[key][i-1]
-                    local diff = prev == nil
-                        and {
-                            soil_diff = diff_tables(res.soil_counts, res.soil_counts),
-                            seed_diff = diff_tables(res.seed_counts, res.seed_counts),
-                            output_diff = diff_tables(res.output_counts, res.output_counts),
-                            fertilizer_diff = 0,
-                        }
-                        or {
-                            soil_diff = diff_tables(prev.soil_counts, res.soil_counts),
-                            seed_diff = diff_tables(prev.seed_counts, res.seed_counts),
-                            output_diff = diff_tables(prev.output_counts, res.output_counts),
-                            fertilizer_diff = res.fertilizer_count - prev.fertilizer_count,
-                        }
-                    farm_diffs[key][i] = diff
-                end
-            end)
-            :totable()
-    
-        -- need to parallelize because Farm:fetch() blocks for 1 tick (0.05s)
-        parallel.waitForAll(table.unpack(funcs))
-    end
+                    or {
+                        soil_diff = diff_tables(prev.soil_counts, res.soil_counts),
+                        seed_diff = diff_tables(prev.seed_counts, res.seed_counts),
+                        output_diff = diff_tables(prev.output_counts, res.output_counts),
+                        fertilizer_diff = res.fertilizer_count - prev.fertilizer_count,
+                    }
+                farm_diffs[key][i] = diff
+            end
+        end)
+        :totable()
+
+    -- need to parallelize because Farm:fetch() blocks for 1 tick (0.05s)
+    parallel.waitForAll(table.unpack(funcs))
 
     local farm_aggregates = fun.iter(farms)
         :map(function(key, _)
-            local latest_counts = farm_counts[key][n_iters]
+            local latest_counts = farm_counts[key][i]
             local diff_aggregate = fun.iter(farm_diffs[key]):reduce(
                 function(acc, x)
                     -- consumables are clamped to [-Inf, 0]
@@ -158,9 +156,7 @@ print(string.format("protocol = %s", protocol))
 
 rednet.open("left")
 
-while true do
-    local farm_aggregates = calculate_farm_aggregates()
-    local farm_aggregates_text = textutils.serialize(farm_aggregates, { compact = true })
-    print(farm_aggregates_text)
+fun.range(1, n_iters):cycle():each(function(i)
+    local farm_aggregates = calculate_farm_aggregates(i)
     rednet.broadcast(farm_aggregates, protocol)
-end
+end)
