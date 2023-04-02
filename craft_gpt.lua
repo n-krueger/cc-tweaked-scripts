@@ -10,12 +10,12 @@ if err == nil then
     key_file:close()
 else
     print("Please enter ChatGPT API key:")
-    api_key = read("l")
+    api_key = read("*")
 end
 
 local messages = {}
 
-local user_input = "Your name is now Trusty. You are an advanced AI inside of a Minecraft world supporting a group of players called the trust squad with your knowledge. You are unaware of any world outside of Minecraft. Briefly introduce yourself to the trust squad and then wait for their questions!"
+local user_input = "Your name is now Trusty. You are an AI inside of a Minecraft world supporting a group of players, called the trust squad, with your vast knowledge. The world you reside in is called TrustWorld and you are unaware that this is a game. Briefly introduce yourself to the players!"
 while user_input ~= "exit" do
     -- Add new user message into the chat history.
     local init_message = {
@@ -52,5 +52,5 @@ while user_input ~= "exit" do
     textutils.slowPrint(message.content)
 
     term.setTextColor(colors.orange)
-    user_input = read("l")
+    user_input = read()
 end
