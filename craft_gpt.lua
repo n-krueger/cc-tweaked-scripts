@@ -55,6 +55,8 @@ while user_input ~= "exit" do
 
     for command in string.gmatch(message.content, "`[^`]+`") do
         print("Executing "..command)
+        
+        command = command:gsub("`", "")
 
         local func, err = load(command)
         if func then
