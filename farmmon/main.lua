@@ -146,8 +146,6 @@ local main_frame = basalt.createFrame()
     :setMonitor("right", 0.5)
     :addLayout(fs.combine(base_dir, "ui.xml"))
 
-basalt.debug("Left frame name: " .. main_frame.getObject("frame.left").getName())
-
 local farm_update_thread = main_frame:addThread()
 farm_update_thread:start(function()
     while true do
@@ -162,6 +160,7 @@ basalt.onEvent(function(event, value)
         farm_aggregate_count = farm_aggregate_count + 1
         basalt.debug("Received 'farm_aggregates' " .. farm_aggregate_count .. " times")
         basalt.debug("spruce_1 fertilizer_count:  " .. value.spruce_1.fertilizer_count)
+        basalt.debug("Left frame name: " .. main_frame.getObject("frame.left").getName())
     end
 end)
 
