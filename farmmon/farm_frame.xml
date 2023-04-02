@@ -1,4 +1,4 @@
-<label id="label.title" x="1" y="1" width="parent.w" height="1" bg="gray" />
+<label id="label.title" x="1" y="1" width="parent.w" height="1" />
 <frame
     id="frame.content"
     x="1"
