@@ -187,8 +187,12 @@ local farm_frames = fun.iter(farms)
                 local seed_count = fun.iter(aggregate.seed_counts)
                     :map(function(k, v) return v end)
                     :sum()
+                local seed_perc = (seed_count / (6 * 64)) * 100
+                
                 local seed_label = self:getDeepObject("label.seed.data")
                 seed_label:setText(tostring(seed_count))
+                local seed_progressbar = self:getDeepObject("progressbar.seed")
+                seed_progressbar:setProgress(seed_perc)
             end
         end
 
