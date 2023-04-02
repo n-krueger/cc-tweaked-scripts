@@ -37,20 +37,20 @@ for i=1,100 do
     local output_counts = farm_ender_1:get_output_counts()
     local fertilzer_count = farm_ender_1:get_fertilizer_count()
     
-    -- print("===== Soil =====")
-    -- pretty.print(pretty.pretty(farm_ender_1:get_soil_counts()))
+    print("===== Soil =====")
+    pretty.print(pretty.pretty(farm_ender_1:get_soil_counts()))
 
-    -- print("===== Seed =====")
-    -- pretty.print(pretty.pretty(farm_ender_1:get_seed_counts()))
+    print("===== Seed =====")
+    pretty.print(pretty.pretty(farm_ender_1:get_seed_counts()))
 
-    -- print("===== Output =====")
-    -- pretty.print(pretty.pretty(farm_ender_1:get_output_counts()))
+    print("===== Output =====")
+    pretty.print(pretty.pretty(farm_ender_1:get_output_counts()))
 
-    -- print("===== Fertilizer =====")
-    -- pretty.print(pretty.pretty(farm_ender_1:get_fertilizer_count()))
+    print("===== Fertilizer =====")
+    pretty.print(pretty.pretty(farm_ender_1:get_fertilizer_count()))
 
     local end_time = os.clock()
     print("Execution time: " .. (end_time - start_time))
 
-    sleep(0.049)
+    -- sleep(0.049)
 end
