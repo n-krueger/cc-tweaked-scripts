@@ -47,7 +47,10 @@ while user_input ~= "exit" do
     -- Add response message to history and output content to user
     local message = response.choices[1].message
     table.insert(messages, message)
+
+    term.setTextColor(colors.cyan)
     textutils.slowPrint(message.content)
 
+    term.setTextColor(colors.orange)
     user_input = read("l")
 end
