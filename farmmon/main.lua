@@ -173,8 +173,8 @@ local farm_frames = fun.iter(farms)
     :map(function(idx, key, _)
         local frame_id = "frame." .. key
         
-        local parent_width, parent_height = main_frame.getSize()
-        local width = math.floor(parent.w / 7)
+        local parent_width, parent_height = main_frame:getSize()
+        local width = math.floor(parent_width / 7)
         local height = parent_height
         local pos_x = (idx - 1) * width + 1
         local pos_y = 1
