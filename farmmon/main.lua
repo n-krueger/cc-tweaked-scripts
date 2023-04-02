@@ -9,8 +9,8 @@ local runtime = 10
 local n_iters = runtime * 20
 
 local color_list = fun.iter(colors)
-    .map(function(k, v) return v end)
-    .totable()
+    :map(function(k, v) return v end)
+    :totable()
 local function random_color()
     return color_list[math.random(#color_list)]
 end
