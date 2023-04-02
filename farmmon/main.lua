@@ -178,10 +178,17 @@ local farm_frames = fun.iter(farms)
 
         local function on_event_handler(self, event, ...)
             if event == "farm_aggregates" then
-                local farm_aggregate = ...
+                local farm_aggregates = ...
+                local aggregate = farm_aggregates[key]
                 
                 basalt.debug("self:getName(): " .. self:getName())
-                basalt.debug("fertilizer_count:  " .. farm_aggregate[key].fertilizer_count)
+                basalt.debug("fertilizer_count:  " .. aggregate.fertilizer_count)
+
+                local seed_count = fun.iter(aggregate.seed_counts)
+                    :map(function(k, v) return v end)
+                    :sum()
+                local seed_label = self:getDeepObject("label.seed.data")
+                seed_label:setText(tostring(seed_count))
             end
         end
 
