@@ -177,7 +177,7 @@ local farm_frames = fun.iter(farms)
         local sub_frame = main_frame
             :addFrame(frame_id)
             :setSize("math.floor(parent.w / 7)", "parent.h")
-            :setPosition("math.floor(parent.w / 7) * (" .. frame_id .. ".idx - 1", 1)
+            :setPosition("math.floor(parent.w / 7) * (" .. frame_id .. ".idx - 1)", 1)
             :setBackground(colors.pink)
             :setBorder(colors.black)
             :addLayout(fs.combine(base_dir, "farm_frame.xml"))
