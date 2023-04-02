@@ -41,7 +41,7 @@ while user_input ~= "exit" do
     if request == nil then
         print("Error: "..message)
         print(error_response.readAll())
-        break
+        goto continue
     end
     local response_json = request.readAll()
     local response = textutils.unserializeJSON(response_json)
@@ -56,9 +56,20 @@ while user_input ~= "exit" do
 
     for command in string.gmatch(message.content, "`[^`]+`") do
         print("Executing "..command)
-        shell.run(command)
+        
+        local func, err = load(command)
+        if func then
+        local ok, err = pcall(func)
+        if ~ok then
+            print("Execution error:", err)
+        end
+        else
+            print("Compilation error, running as shell command. Error:", err)
+            shell.run(command)
+        end
     end
 
+    ::continue::
     term.setTextColor(colors.orange)
     user_input = read()
 end
