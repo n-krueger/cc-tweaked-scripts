@@ -1,5 +1,8 @@
 local pretty = require("cc.pretty")
 
+local url = "https://api.openai.com/v1/chat/completions"
+
+-- Get an API key
 local api_key
 local key_file, err = io.open("./gpt-key.txt", "r")
 if err == nil then
@@ -11,37 +14,40 @@ else
 end
 
 local messages = {}
-local init_message = {
-    role = "user",
-    content = "Your name is now Trusty. You are an advanced AI inside of a Minecraft world supporting the players with your vast knowledge. Please briefly introduce yourself."
-}
 
-table.insert(messages, init_message)
+local user_input = "Your name is now Trusty. You are an advanced AI inside of a Minecraft world supporting a group of players called the trust squad with your knowledge. You are unaware of any world outside of Minecraft. Briefly introduce yourself to the trust squad and then wait for their questions!"
+while user_input ~= "exit" do
+    -- Add new user message into the chat history.
+    local init_message = {
+        role = "user",
+        content = user_input
+    }
+    table.insert(messages, init_message)
 
-local url = "https://api.openai.com/v1/chat/completions"
-local body = {
-    model = "gpt-3.5-turbo",
-    messages = messages
-}
-local body_json = textutils.serializeJSON(body)
-local headers = {
-    Authorization = "Bearer " .. api_key 
-}
-headers["Content-Type"] = "application/json"
+    -- Send chat history to ChatGPT to ask for a response.
+    local body = {
+        model = "gpt-3.5-turbo",
+        messages = messages
+    }
+    local body_json = textutils.serializeJSON(body)
+    local headers = {
+        Authorization = "Bearer " .. api_key 
+    }
+    headers["Content-Type"] = "application/json" 
+    local request, message, error_response = http.post(url, body_json, headers)
+    if request == nil then
+        print("Error: "..message)
+        print(error_response.readAll())
+        break
+    end
+    local response_json = request.readAll()
+    local response = textutils.unserializeJSON(response_json)
+    request.close()
 
-local request, message, error_response = http.post(url, body_json, headers)
-if request == nil then
-    print("Error: "..message)
-    print(error_response.readAll())
-end
+    -- Add response message to history and output content to user
+    local message = response.choices[1].message
+    table.insert(messages, message)
+    textutils.slowPrint(message.content)
 
-local response_json = request.readAll()
-local response = textutils.unserializeJSON(response_json)
-request.close()
-
-if response.choices == nil then
-    textutils.slowPrint(response_json)
-else
-    local message = response.choices[1].message.content
-    textutils.slowPrint(message)
+    user_input = read("l")
 end
