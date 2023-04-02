@@ -34,5 +34,13 @@
         horizontalAlign="right"
         text="TEST"
     />
-    <progressbar id="progressbar.seed" x="2" y="3" width="parent.w - 2" height="1" />
+    <progressbar
+        id="progressbar.seed"
+        x="2"
+        y="3"
+        width="parent.w - 2"
+        height="1"
+        bg="gray"
+        progressColor="white"
+    />
 </frame>
