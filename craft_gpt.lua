@@ -55,7 +55,7 @@ while user_input ~= "exit" do
 
     for command in string.gmatch(message.content, "`[^`]+`") do
         print("Executing "..command)
-        
+
         local func, err = load(command)
         if func then
         local ok, err = pcall(func)
@@ -68,7 +68,6 @@ while user_input ~= "exit" do
         end
     end
 
-    ::continue::
     term.setTextColor(colors.orange)
     user_input = read()
 end
