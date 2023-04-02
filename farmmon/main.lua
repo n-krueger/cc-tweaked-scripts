@@ -93,7 +93,7 @@ while true do
 
     local farm_aggregates = fun.tomap(fun.map(
         function(key, _)
-            return fun.reduce(
+            return key, fun.reduce(
                 function(acc, x)
                     local res = {
                         soil_counts = sum_tables(acc.soil_counts, x.soil_counts),
