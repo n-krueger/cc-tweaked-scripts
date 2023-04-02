@@ -55,6 +55,7 @@ while user_input ~= "exit" do
     term.setTextColor(colors.cyan)
     textutils.slowPrint(content)
 
+    term.setTextColor(colors.green)
     for command in string.gmatch(content, "`[^`]+`") do
         command = command:gsub("`", "")
 
@@ -63,7 +64,6 @@ while user_input ~= "exit" do
             local ok, res = pcall(func)
             if ok then
                 if res ~= nil then
-                    term.setTextColor(colors.green)
                     local command_message = {
                         role = "user",
                         content = "The terminal showed this output for your command: " .. tostring(res)
@@ -72,7 +72,6 @@ while user_input ~= "exit" do
                     print(tostring(res))
                 end
             else
-                term.setTextColor(colors.green)
                 print("Execution error:", res)
             end
         else
