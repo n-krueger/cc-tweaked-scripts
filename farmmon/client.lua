@@ -14,6 +14,7 @@ local farms = {
 }
 
 local item_pretty_names = {
+    ["forestry:fertilizer"] = "Fertilizer",
     ["minecraft:dirt"] = "Dirt",
     ["minecraft:end_stone"] = "End Stone",
     ["minecraft:sapling"] = "Sapling",
@@ -26,6 +27,7 @@ local item_pretty_names = {
 }
 
 local item_colors = {
+    ["forestry:fertilizer"] = colors.lightBlue,
     ["minecraft:dirt"] = colors.brown,
     ["minecraft:end_stone"] = colors.lightGray,
     ["minecraft:sapling"] = colors.green,
@@ -84,25 +86,28 @@ local farm_frames = fun.iter(farms)
                     indicator_idx = indicator_idx - 1
                 end
 
-                local fertilizer_count = aggregate.fertilizer_count
-                local fertilizer_indicator = content_frame:addFrame()
-                    :setSize(farm_frame_width - 2, 2)
-                    :setPosition(2, (indicator_idx - 1) * 2 + 2)
-                    :setBackground(colors.black)
-                    :setForeground(colors.white)
-                    :addLayout(fs.combine(base_dir, "indicator_frame.xml"))
-                indicators[indicator_idx] = fertilizer_indicator
-                indicator_idx = indicator_idx + 1
+                local function add_indicator(item_name, count, max_count)
+                    local indicator = content_frame:addFrame()
+                        :setSize(farm_frame_width - 2, 2)
+                        :setPosition(2, (indicator_idx - 1) * 2 + 2)
+                        :setBackground(colors.black)
+                        :setForeground(colors.white)
+                        :addLayout(fs.combine(base_dir, "indicator_frame.xml"))
+                    indicators[indicator_idx] = indicator
+                    indicator_idx = indicator_idx + 1
 
-                local fertilizer_label_title = fertilizer_indicator:getObject("label.title")
-                fertilizer_label_title:setText("Fertilizer")
-                
-                local fertilizer_label_data = fertilizer_indicator:getObject("label.data")
-                fertilizer_label_data:setText(string.format("%3d/%3d", fertilizer_count, 64))
-                
-                local fertilizer_progressbar = fertilizer_indicator:getObject("progressbar")
-                fertilizer_progressbar:setProgressBar(colors.lightBlue)
-                fertilizer_progressbar:setProgress((fertilizer_count / 64) * 100)
+                    local label_title = indicator:getObject("label.title")
+                    label_title:setText(item_pretty_names[item_name] or item_name)
+
+                    local label_data = indicator:getObject("label.data")
+                    label_data:setText(string.format("%3d/%3d", count, max_count))
+
+                    local progressbar = indicator:getObject("progressbar")
+                    progressbar:setProgressBar(item_colors[item_name] or colors.white)
+                    progressbar:setProgress((count / max_count) * 100)
+                end
+
+                add_indicator("forestry:fertilizer", aggregate.fertilizer_count, 64)
 
                 local indicator_iterator = fun.zip(
                     fun.iter({ "soil", "seed", "ouptut" }),
@@ -111,25 +116,7 @@ local farm_frames = fun.iter(farms)
                 )
                 indicator_iterator:each(function(key, counts, max_count)
                     fun.iter(counts):each(function(item_name, count)
-                        local indicator = content_frame:addFrame()
-                            :setSize(farm_frame_width - 2, 2)
-                            :setPosition(2, (indicator_idx - 1) * 2 + 2)
-                            :setBackground(colors.black)
-                            :setForeground(colors.white)
-                            :addLayout(fs.combine(base_dir, "indicator_frame.xml"))
-                        indicators[indicator_idx] = indicator
-                        indicator_idx = indicator_idx + 1
-
-                        basalt.debug(item_name)
-                        local label_title = indicator:getObject("label.title")
-                        label_title:setText(item_pretty_names[item_name] or item_name)
-
-                        local label_data = indicator:getObject("label.data")
-                        label_data:setText(string.format("%3d/%3d", count, max_count))
-
-                        local progressbar = indicator:getObject("progressbar")
-                        progressbar:setProgressBar(item_colors[item_name] or colors.white)
-                        progressbar:setProgress((count / max_count) * 100)
+                        add_indicator(item_name, count, max_count)
                     end)
                 end)
             end
