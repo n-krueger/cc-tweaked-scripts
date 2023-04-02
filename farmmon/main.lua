@@ -1,7 +1,11 @@
 local pretty = require("cc.pretty")
+local basalt = require("basalt")
 local fun = require("fun")
 
 local Farm = require("farm")
+
+local runtime = 60
+local n_iters = runtime * 20
 
 local farms = {
     ender_1 = Farm:new({ peripheral = peripheral.wrap("forestry:farm_1") }),
@@ -41,12 +45,7 @@ local function diff_tables(a, b)
         :tomap()
 end
 
-local runtime = 60
-local n_iters = runtime * 20
-
-while true do
-    print("Collecting data for " .. runtime .. "s...")
-
+local function calculate_farm_aggregates()
     for i=1,n_iters do
         local funcs = fun.iter(farms)
             :map(function(key, farm)
@@ -138,6 +137,24 @@ while true do
             )
         end)
         :tomap()
-
-    pretty.print(pretty.pretty(farm_aggregates))
 end
+
+local main_frame = basalt.createFrame()
+
+local farm_update_thread = main_frame:addThread()
+farm_update_thread:start(function()
+    while true do
+        calculate_farm_aggregates()
+        os.queueEvent("farm_aggregates")
+    end
+end)
+
+local farm_aggregate_count = 0
+basalt.onEvent(function(event)
+    if event == "farm_aggregates" then
+        farm_aggregate_count = farm_aggregate_count + 1
+        basalt.debug("Received 'farm_aggregates' " .. farm_aggregate_count .. " times")
+    end
+end)
+
+basalt.autoUpdate()
