@@ -3,6 +3,7 @@ local pretty = require("cc.pretty")
 local url = "https://api.openai.com/v1/chat/completions"
 
 term.clear()
+term.setCursorPos(1,1)
 
 -- Get an API key
 local api_key
