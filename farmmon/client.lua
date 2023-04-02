@@ -50,25 +50,25 @@ local farm_frames = fun.iter(farms)
                 local farm_aggregates = ...
                 local aggregate = farm_aggregates[key]
                 
-                basalt.debug("self:getName(): " .. self:getName())
-                basalt.debug("fertilizer_count:  " .. aggregate.fertilizer_count)
+                local content_frame = self:getObject("frame.content")
+                basalt.debug("content_frame:getName(): " .. content_frame:getName())
 
                 -- delete old indicators
                 while (indicator_idx > 1) do
-                    self:removeObject(indicators[indicator_idx])
+                    content_frame:removeObject(indicators[indicator_idx])
                     indicators[indicator_idx] = nil
                     indicator_idx = indicator_idx - 1
                 end
 
                 local fertilizer_count = aggregate.fertilizer_count
-                local fertilizer_indicator = self:addFrame()
+                local fertilizer_indicator = content_frame:addFrame()
                     :setSize(farm_frame_width, 2)
                     :setPosition(2, (indicator_idx - 1) * 2 + 2)
                     :addLayout(fs.combine(base_dir, "indicator_frame.xml"))
                 indicators[indicator_idx] = fertilizer_indicator
                 indicator_idx = indicator_idx + 1
 
-                local fertilizer_label_title = indicator.getObject("label.title")
+                local fertilizer_label_title = fertilizer_indicator.getObject("label.title")
                 fertilizer_label_title:setText("Fertilizer")
                 
                 local fertilizer_label_data = fertilizer_indicator:getObject("label.data")
@@ -84,7 +84,7 @@ local farm_frames = fun.iter(farms)
                 )
                 indicator_iterator:each(function(key, counts, max_count)
                     fun.iter(counts):each(function(item_name, count)
-                        local indicator = self:addFrame()
+                        local indicator = content_frame:addFrame()
                             :setSize(farm_frame_width, 2)
                             :setPosition(2, (indicator_idx - 1) * 2 + 2)
                             :addLayout(fs.combine(base_dir, "indicator_frame.xml"))
