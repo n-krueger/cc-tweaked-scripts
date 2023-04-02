@@ -5,7 +5,7 @@ local fun = require("fun")
 local Farm = require("farm")
 
 local base_dir = fs.getDir(shell.getRunningProgram())
-local runtime = 10
+local runtime = 1
 local n_iters = runtime * 20
 
 local color_list = fun.iter(colors)
