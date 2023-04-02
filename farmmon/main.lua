@@ -73,5 +73,5 @@ for i=1,100 do
     print("Execution time: " .. (end_time - start_time))
 end
 
-pretty.print(pretty.pretty(farm_counts))
-pretty.print(pretty.pretty(farm_diffs))
+pretty.print(pretty.pretty(farm_counts.spruce_1))
+pretty.print(pretty.pretty(farm_diffs.spruce_1))
