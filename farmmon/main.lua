@@ -167,6 +167,16 @@ local function farmAggregateHandler(self, event, ...)
 end
 
 basalt.setVariable("farmAggregateHandler", farmAggregateHandler)
-main_frame:addLayout(fs.combine(base_dir, "ui.xml"))
+
+local farm_frames = fun.iter(farms)
+    :map(function(key, _)
+        local sub_frame = main_frame
+            :addFrame("frame." .. key)
+            :setSize("parent.w / 7", "parent.h")
+            :addLayout(fs.combine(base_dir, "farm_frame.xml"))
+        
+        local title_label = sub_frame:getObject("label.title")
+        title_label:setText(key)
+    end)
 
 basalt.autoUpdate()
