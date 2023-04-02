@@ -5,6 +5,7 @@
     y="2"
     width="parent.w"
     height="parent.h - 1"
+    bg="black"
     border="white"
 >
 </frame>
