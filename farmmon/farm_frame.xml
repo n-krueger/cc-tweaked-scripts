@@ -17,6 +17,22 @@
     fg="white"
     border="white"
 >
-    <label id="label.seed" x="2" y="2" width="parent.w - 2" height="1" text="Seed" />
+    <label
+        id="label.seed.title"
+        x="2"
+        y="2"
+        width="(parent.w - 2) / 2"
+        height="1"
+        text="Seed"
+    />
+    <label
+        id="label.seed.data"
+        x="parent.w / 2 + 1"
+        y="2"
+        width="(parent.w - 2) / 2"
+        height="1"
+        horizontalAlign="right"
+        text="TEST"
+    />
     <progressbar id="progressbar.seed" x="2" y="3" width="parent.w - 2" height="1" />
 </frame>
