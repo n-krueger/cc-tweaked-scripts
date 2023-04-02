@@ -156,7 +156,7 @@ basalt.onEvent(function(event, value)
     if event == "farm_aggregates" then
         farm_aggregate_count = farm_aggregate_count + 1
         basalt.debug("Received 'farm_aggregates' " .. farm_aggregate_count .. " times")
-        basalt.debug("value is " .. value)
+        basalt.debug("spruce_1 fertilizer_count:  " .. value.spruce_1.fertilizer_count)
     end
 end)
 
