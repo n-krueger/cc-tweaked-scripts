@@ -8,6 +8,13 @@ local base_dir = fs.getDir(shell.getRunningProgram())
 local runtime = 10
 local n_iters = runtime * 20
 
+local color_list = fun.iter(colors)
+    .map(function(k, v) return v end)
+    .totable()
+local function random_color()
+    return color_list[math.random(#color_list)]
+end
+
 local farms = {
     ender_1 = Farm:new({ peripheral = peripheral.wrap("forestry:farm_1") }),
     barley_1 = Farm:new({ peripheral = peripheral.wrap("forestry:farm_2") }),
@@ -183,7 +190,7 @@ local farm_frames = fun.iter(farms)
             :addFrame(frame_id)
             :setSize(width, height)
             :setPosition(pos_x, pos_y)
-            :setBackground(colors.pink)
+            :setBackground(random_color())
             :setBorder(colors.black)
             :addLayout(fs.combine(base_dir, "farm_frame.xml"))
         
