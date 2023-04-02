@@ -74,7 +74,7 @@ local farm_frames = fun.iter(farms)
                 fertilizer_label_title:setText("Fertilizer")
                 
                 local fertilizer_label_data = fertilizer_indicator:getObject("label.data")
-                fertilizer_label_data:setText(tostring(fertilizer_count))
+                fertilizer_label_data:setText(string.format("%3d/%3d", fertilizer_count, 64))
                 
                 local fertilizer_progressbar = fertilizer_indicator:getObject("progressbar")
                 fertilizer_progressbar:setProgress((fertilizer_count / 64) * 100)
