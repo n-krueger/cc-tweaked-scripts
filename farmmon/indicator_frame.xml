@@ -1,25 +1,24 @@
 <label
     id="label.title"
-    x="2"
+    x="1"
     y="1"
-    width="(parent.w - 2) / 2"
+    width="parent.w / 2"
     height="1"
     text="Soil"
 />
 <label
     id="label.data"
-    x="parent.w / 2 + 1"
+    x="parent.w - 7"
     y="1"
-    width="(parent.w - 2) / 2"
+    width="7"
     height="1"
-    horizontalAlign="right"
     text="TEST"
 />
 <progressbar
     id="progressbar"
-    x="2"
+    x="1"
     y="2"
-    width="parent.w - 2"
+    width="parent.w"
     height="1"
     bg="gray"
     progressColor="white"
