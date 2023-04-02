@@ -144,6 +144,7 @@ end
 
 local main_frame = basalt.createFrame()
     :setMonitor("right")
+    :setMonitorScale(0.5)
     :addLayout(fs.combine(base_dir, "ui.xml"))
 
 local farm_update_thread = main_frame:addThread()
