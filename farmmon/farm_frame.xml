@@ -15,7 +15,6 @@
     height="parent.h - 1"
     bg="black"
     fg="white"
-    border="white"
 >
     <label
         id="label.soil.title"
