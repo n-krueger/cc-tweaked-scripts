@@ -15,7 +15,7 @@ local farms = {
 
 local item_pretty_names = {
     ["minecraft:dirt"] = "Dirt",
-    ["minecraft:end_stone"] = "End_Stone",
+    ["minecraft:end_stone"] = "End Stone",
     ["minecraft:sapling"] = "Sapling",
     ["minecraft:wheat_seeds"] = "Wheat Seeds",
     ["natura:overworld_seeds"] = "Barley Seeds",
