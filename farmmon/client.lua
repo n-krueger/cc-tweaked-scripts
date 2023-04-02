@@ -95,6 +95,7 @@ local farm_frames = fun.iter(farms)
                         indicators[indicator_idx] = indicator
                         indicator_idx = indicator_idx + 1
 
+                        basalt.debug(item_name)
                         local label_title = indicator:getObject("label.title")
                         label_title:setText(string.format("%s - %s", key, item_name))
 
