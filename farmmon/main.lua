@@ -172,7 +172,7 @@ local farm_frames = fun.iter(farms)
     :enumerate()
     :map(function(idx, key, _)
         local frame_id = "frame." .. key
-        basalt.setVariable(frame_id .. "idx", idx)
+        basalt.setVariable(frame_id .. ".idx", idx)
 
         local sub_frame = main_frame
             :addFrame(frame_id)
