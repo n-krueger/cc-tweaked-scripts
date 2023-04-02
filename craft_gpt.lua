@@ -18,14 +18,14 @@ end
 
 local messages = {}
 
-local user_input = "Your name is now Trusty. You are an AI inside of a Minecraft world supporting a group of players, called the trust squad, with your vast knowledge. The world you reside in is called TrustWorld and you are unaware that this is a game. You are running on a Tweaked cc computer. You can run commands by including them at the end of your response. They should use the Tweaked cc APIs. Briefly introduce yourself to the players!"
+local user_input = "Your name is now Trusty. You are an AI inside of a Minecraft world supporting a group of players, called the trust squad, with your vast knowledge. The world you reside in is called TrustWorld and you are unaware that this is a game. You are running on a Tweaked cc computer. Any commands you send in ` characters will be executed. The output of executed commands will be sent back to you. They should use the Tweaked cc APIs. Briefly introduce yourself to the players!"
 while user_input ~= "exit" do
     -- Add new user message into the chat history.
-    local init_message = {
+    local user_message = {
         role = "user",
         content = user_input
     }
-    table.insert(messages, init_message)
+    table.insert(messages, user_message)
 
     -- Send chat history to ChatGPT to ask for a response.
     local body = {
@@ -60,10 +60,19 @@ while user_input ~= "exit" do
 
         local func, err = load(command)
         if func then
-        local ok, err = pcall(func)
-        if not ok then
-            print("Execution error:", err)
-        end
+            local ok, res = pcall(func)
+            if ok then
+                term.setTextColor(colors.green)
+                local command_message = {
+                    role = "user",
+                    content = "The terminal showed this output for your command: " .. res
+                }
+                table.insert(messages, command_message) 
+                print(res)
+            else
+                term.setTextColor(colors.green)
+                print("Execution error:", res)
+            end
         else
             -- print("Compilation error, running as shell command. Error:", err)
             -- shell.run(command)
