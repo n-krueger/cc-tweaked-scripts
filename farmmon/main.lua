@@ -147,7 +147,7 @@ local main_frame = basalt.createFrame()
     :addLayout(fs.combine(base_dir, "ui.xml"))
 
 local left_frame = main_frame:getObject("frame.left")
-basalt.debug("Left frame name exists?: " .. (left_frame ~= nil))
+basalt.debug("Left frame name: " .. left_frame.getName())
 
 local farm_update_thread = main_frame:addThread()
 farm_update_thread:start(function()
