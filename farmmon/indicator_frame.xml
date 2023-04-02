@@ -1,0 +1,26 @@
+<label
+    id="label.title"
+    x="2"
+    y="2"
+    width="(parent.w - 2) / 2"
+    height="1"
+    text="Soil"
+/>
+<label
+    id="label.data"
+    x="parent.w / 2 + 1"
+    y="2"
+    width="(parent.w - 2) / 2"
+    height="1"
+    horizontalAlign="right"
+    text="TEST"
+/>
+<progressbar
+    id="progressbar"
+    x="2"
+    y="3"
+    width="parent.w - 2"
+    height="1"
+    bg="gray"
+    progressColor="white"
+/>

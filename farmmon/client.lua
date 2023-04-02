@@ -42,6 +42,9 @@ local farm_frames = fun.iter(farms)
         local row_idx = math.floor((idx - 1) / n_rows) + 1
         local frame_id = "frame." .. key
 
+        local indicators = {}
+        local indicator_idx = 1
+
         local function on_event_handler(self, event, ...)
             if event == "farm_aggregates" then
                 local farm_aggregates = ...
@@ -50,30 +53,54 @@ local farm_frames = fun.iter(farms)
                 basalt.debug("self:getName(): " .. self:getName())
                 basalt.debug("fertilizer_count:  " .. aggregate.fertilizer_count)
 
-                local soil_count = fun.iter(aggregate.soil_counts)
-                    :map(function(k, v) return v end)
-                    :sum()
-                local soil_perc = (soil_count / (6 * 64)) * 100
-                local soil_label = self:getDeepObject("label.soil.data")
-                soil_label:setText(tostring(soil_count))
-                local soil_progressbar = self:getDeepObject("progressbar.soil")
-                soil_progressbar:setProgress(soil_perc)
-
-                local seed_count = fun.iter(aggregate.seed_counts)
-                    :map(function(k, v) return v end)
-                    :sum()
-                local seed_perc = (seed_count / (6 * 64)) * 100
-                local seed_label = self:getDeepObject("label.seed.data")
-                seed_label:setText(tostring(seed_count))
-                local seed_progressbar = self:getDeepObject("progressbar.seed")
-                seed_progressbar:setProgress(seed_perc)
+                -- delete old indicators
+                while (indicator_idx > 1) do
+                    self:removeObject(indicators[indicator_idx])
+                    indicators[indicator_idx] = nil
+                    indicator_idx = indicator_idx - 1
+                end
 
                 local fertilizer_count = aggregate.fertilizer_count
-                local fertilizer_perc = (fertilizer_count / 64) * 100
-                local fertilizer_label = self:getDeepObject("label.fertilizer.data")
-                fertilizer_label:setText(tostring(fertilizer_count))
-                local fertilizer_progressbar = self:getDeepObject("progressbar.fertilizer")
-                fertilizer_progressbar:setProgress(fertilizer_perc)
+                local fertilizer_indicator = self:addFrame()
+                    :setSize(farm_frame_width, 2)
+                    :setPosition(2, (indicator_idx - 1) * 2 + 2)
+                    :addLayout(fs.combine(base_dir, "indicator_frame.xml"))
+                indicators[indicator_idx] = fertilizer_indicator
+                indicator_idx = indicator_idx + 1
+
+                local fertilizer_label_title = indicator.getObject("label.title")
+                fertilizer_label_title:setText("Fertilizer")
+                
+                local fertilizer_label_data = fertilizer_indicator:getObject("label.data")
+                fertilizer_label_data:setText(tostring(fertilizer_count))
+                
+                local fertilizer_progressbar = fertilizer_indicator:getObject("progressbar")
+                fertilizer_progressbar:setProgress((fertilizer_count / 64) * 100)
+
+                local indicator_iterator = fun.zip(
+                    fun.iter({ "soil", "seed", "ouptut" }),
+                    fun.iter({ aggregate.soil_counts, aggregate.seed_counts, aggregate.output_counts }),
+                    fun.iter({ 6 * 64, 6 * 64, 8 * 64 })
+                )
+                indicator_iterator:each(function(key, counts, max_count)
+                    fun.iter(counts):each(function(item_name, count)
+                        local indicator = self:addFrame()
+                            :setSize(farm_frame_width, 2)
+                            :setPosition(2, (indicator_idx - 1) * 2 + 2)
+                            :addLayout(fs.combine(base_dir, "indicator_frame.xml"))
+                        indicators[indicator_idx] = indicator
+                        indicator_idx = indicator_idx + 1
+
+                        local label_title = indicator.getObject("label.title")
+                        label_title:setText(string.format("%s - %s", key, item_name))
+
+                        local label_data = indicator.getObject("label.data")
+                        label_data:setText(string.format("%3d/%3d", count, max_count))
+
+                        local progressbar = indicator.getObject("progressbar")
+                        progressbar:setProgress((count / max_count) * 100)
+                    end)
+                end)
             end
         end
 
