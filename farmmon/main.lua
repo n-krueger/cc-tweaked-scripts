@@ -41,7 +41,7 @@ local function diff_tables(a, b)
         :tomap()
 end
 
-local runtime = 20
+local runtime = 60
 local n_iters = runtime * 20
 
 while true do
