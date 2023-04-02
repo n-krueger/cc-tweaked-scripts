@@ -41,7 +41,6 @@ while user_input ~= "exit" do
     if request == nil then
         print("Error: "..message)
         print(error_response.readAll())
-        goto continue
     end
     local response_json = request.readAll()
     local response = textutils.unserializeJSON(response_json)
