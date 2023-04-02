@@ -27,15 +27,11 @@ local function sum_tables(a, b)
     local res = {}
 
     for k, v in pairs(a) do
-        if v >= 0 then
-            res[k] = v
-        end
+        res[k] = v
     end
 
     for k, v in pairs(b) do
-        if v >= 0 then
-            res[k] = (res[k] or 0) + v
-        end
+        res[k] = (res[k] or 0) + v
     end
 
     return res
@@ -96,10 +92,38 @@ while true do
             return key, fun.reduce(
                 function(acc, x)
                     local res = {
-                        soil_counts = sum_tables(acc.soil_counts, x.soil_counts),
-                        seed_counts = sum_tables(acc.seed_counts, x.seed_counts),
-                        output_counts = sum_tables(acc.output_counts, x.output_counts),
-                        fertilizer_count = acc.fertilizer_count + x.fertilizer_count,
+                        soil_counts = sum_tables(
+                            fun.tomap(fun.map(
+                                function(k, v) return k, math.min(v, 0) end,
+                                acc.soil_counts
+                            )),
+                            fun.tomap(fun.map(
+                                function(k, v) return k, math.min(v, 0) end,
+                                x.soil_counts
+                            ))
+                        ),
+                        seed_counts = sum_tables(
+                            fun.tomap(fun.map(
+                                function(k, v) return k, math.min(v, 0) end,
+                                acc.seed_counts
+                            )),
+                            fun.tomap(fun.map(
+                                function(k, v) return k, math.min(v, 0) end,
+                                x.seed_counts
+                            ))
+                        ),
+                        output_counts = sum_tables(
+                            fun.tomap(fun.map(
+                                function(k, v) return k, math.max(v, 0) end,
+                                acc.output_counts
+                            )),
+                            fun.tomap(fun.map(
+                                function(k, v) return k, math.max(v, 0) end,
+                                x.output_counts
+                            ))
+                        ),
+                        fertilizer_count = math.min(acc.fertilizer_count, 0)
+                            + math.min(x.fertilizer_count, 0)
                     }
 
                     return res
