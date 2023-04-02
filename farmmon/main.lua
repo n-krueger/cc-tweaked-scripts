@@ -144,9 +144,6 @@ end
 
 local main_frame = basalt.createFrame():setMonitor("right", 0.5)
 
-local left_frame = main_frame:getObject("frame.left")
-basalt.debug("Left frame name: " .. left_frame.getName())
-
 local farm_update_thread = main_frame:addThread()
 farm_update_thread:start(function()
     while true do
