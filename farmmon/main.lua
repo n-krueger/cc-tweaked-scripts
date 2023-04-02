@@ -142,9 +142,7 @@ local function calculate_farm_aggregates()
     return farm_aggregates
 end
 
-local main_frame = basalt.createFrame()
-    :setMonitor("right", 0.5)
-    :addLayout(fs.combine(base_dir, "ui.xml"))
+local main_frame = basalt.createFrame():setMonitor("right", 0.5)
 
 local left_frame = main_frame:getObject("frame.left")
 basalt.debug("Left frame name: " .. left_frame.getName())
@@ -158,13 +156,19 @@ farm_update_thread:start(function()
 end)
 
 local farm_aggregate_count = 0
-basalt.onEvent(function(event, value)
+local function farmAggregateHandler(self, event, ...)
     if event == "farm_aggregates" then
+        basalt.debug("self:getName(): " .. self:getName())
+
+        local farm_aggregate = ...
         farm_aggregate_count = farm_aggregate_count + 1
         basalt.debug("Received 'farm_aggregates' " .. farm_aggregate_count .. " times")
-        basalt.debug("spruce_1 fertilizer_count:  " .. value.spruce_1.fertilizer_count)
+        basalt.debug("spruce_1 fertilizer_count:  " .. farm_aggregate.spruce_1.fertilizer_count)
         
     end
-end)
+end
+
+basalt.setVariable("farmAggregateHandler", farmAggregateHandler)
+main_frame:addLayout(fs.combine(base_dir, "ui.xml"))
 
 basalt.autoUpdate()
