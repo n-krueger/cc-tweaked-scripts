@@ -4,6 +4,7 @@ local fun = require("fun")
 
 local Farm = require("farm")
 
+local base_dir = fs.getDir(shell.getRunningProgram())
 local runtime = 10
 local n_iters = runtime * 20
 
@@ -143,7 +144,7 @@ end
 
 local main_frame = basalt.createFrame()
     :setMonitor("right")
-    :addLayout("ui.xml")
+    :addLayout(fs.combine(base_dir, "ui.xml"))
 
 local farm_update_thread = main_frame:addThread()
 farm_update_thread:start(function()
