@@ -30,11 +30,11 @@ local function diff_tables(a, b)
     ))
 end
 
-for i=1,100 do
-    print("i=" .. i)
+local runtime = 20
+local n_iters = runtime * 20
+print("Collecting data for " .. runtime .. "s")
 
-    local start_time = os.clock()
-
+for i=1,n_iters do
     local funcs = fun.totable(fun.map(
         function(key, farm)
             return function()
@@ -46,8 +46,9 @@ for i=1,100 do
                     output_counts = farm:get_output_counts(),
                     fertilizer_count = farm:get_fertilizer_count(),
                 }
+                farm_counts[key][i] = res
+
                 local prev = farm_counts[key][i-1]
-                
                 local diff = prev == nil
                     and {
                         soil_counts = diff_tables(res.soil_counts, res.soil_counts),
@@ -68,9 +69,6 @@ for i=1,100 do
     ))
 
     parallel.waitForAll(table.unpack(funcs))
-
-    local end_time = os.clock()
-    print("Execution time: " .. (end_time - start_time))
 end
 
 pretty.print(pretty.pretty(farm_counts.spruce_1))
