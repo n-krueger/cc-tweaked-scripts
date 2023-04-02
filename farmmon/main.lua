@@ -156,7 +156,7 @@ local farm_aggregate_count = 0
 local function farmAggregateHandler(self, event, ...)
     if event == "farm_aggregates" then
         basalt.debug("self:getName(): " .. self:getName())
-        basalt.debug("frame.left name:" .. main_frame:getObject("frame.left"):getName())
+        basalt.debug("frame.left name:" .. main_frame:getDeepObject("frame.left"):getName())
 
         local farm_aggregate = ...
         farm_aggregate_count = farm_aggregate_count + 1
