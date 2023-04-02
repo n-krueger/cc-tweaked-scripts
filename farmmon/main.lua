@@ -68,11 +68,10 @@ for i=1,100 do
     ))
 
     parallel.waitForAll(table.unpack(funcs))
-    pretty.print(pretty.pretty(farm_counts))
-    pretty.print(pretty.pretty(farm_diffs))
 
     local end_time = os.clock()
     print("Execution time: " .. (end_time - start_time))
-
-    -- sleep(0.049)
 end
+
+pretty.print(pretty.pretty(farm_counts))
+pretty.print(pretty.pretty(farm_diffs))
