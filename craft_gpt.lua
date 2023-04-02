@@ -59,7 +59,7 @@ while user_input ~= "exit" do
         local func, err = load(command)
         if func then
         local ok, err = pcall(func)
-        if ~ok then
+        if not ok then
             print("Execution error:", err)
         end
         else
