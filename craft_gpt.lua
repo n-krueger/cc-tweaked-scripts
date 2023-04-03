@@ -149,7 +149,7 @@ while user_input ~= "exit" do
         messages = messages
     }
     local body_json = textutils.serializeJSON(body)
-    cc.pretty(body_json)
+    pretty.print(body_json)
     local headers = {
         Authorization = "Bearer " .. api_key 
     }
