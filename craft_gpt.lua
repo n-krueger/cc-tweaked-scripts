@@ -148,8 +148,10 @@ while user_input ~= "exit" do
         model = "gpt-3.5-turbo",
         messages = messages
     }
+
+    pretty.print(body)
+
     local body_json = textutils.serializeJSON(body)
-    print(body_json)
     local headers = {
         Authorization = "Bearer " .. api_key 
     }
