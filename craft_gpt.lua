@@ -149,7 +149,7 @@ while user_input ~= "exit" do
         messages = messages
     }
 
-    pretty.print(body)
+    pretty.pretty_print(body)
 
     local body_json = textutils.serializeJSON(body)
     local headers = {
