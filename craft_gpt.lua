@@ -1,5 +1,3 @@
-local pretty = require "cc.pretty"
-
 local url = "https://api.openai.com/v1/chat/completions"
 
 term.clear()
@@ -149,9 +147,11 @@ while user_input ~= "exit" do
         messages = messages
     }
 
-    pretty.pretty_print(body)
-
     local body_json = textutils.serializeJSON(body)
+
+    print("Body JSON:")
+    print(body_json)
+
     local headers = {
         Authorization = "Bearer " .. api_key 
     }
