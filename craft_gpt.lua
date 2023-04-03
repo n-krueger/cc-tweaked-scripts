@@ -134,9 +134,7 @@ local system_input = [[Your name is now Trusty. You are an AI assistant inside o
 
 local system_message = {
     role = "system",
-    content = system_input.gsub(
-[[
-]], "\n")
+    content = system_input.gsub("n", " ")
 }
 table.insert(messages, system_message)
 
