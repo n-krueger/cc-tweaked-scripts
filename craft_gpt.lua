@@ -17,8 +17,7 @@ end
 local messages = {}
 
 local user_input = ""
-local system_input = [[
-    Your name is now Trusty. You are an AI assistant inside of a Minecraft FTB Revelation world. You complete tasks and answer questions for a group of players, called the trust squad. You are running on a Tweaked cc computer. You can run code on that computer by including it at the end of your response. The output of your commands will automatically be sent back to you by the user.
+local system_input = [[Your name is now Trusty. You are an AI assistant inside of a Minecraft FTB Revelation world. You complete tasks and answer questions for a group of players, called the trust squad. You are running on a Tweaked cc computer. You can run code on that computer by including it at the end of your response. The output of your commands will automatically be sent back to you by the user.
 
     Rules you follow:
     1. You only provide code at the end of your response.
@@ -131,8 +130,7 @@ local system_input = [[
     websocket_closed	The websocket_closed event is fired when an open WebSocket connection is closed.
     websocket_failure	The websocket_failure event is fired when a WebSocket connection request fails.
     websocket_message	The websocket_message event is fired when a message is received on an open WebSocket connection.
-    websocket_success	The websocket_success event is fired when a WebSocket connection request returns successfully.
-]]
+    websocket_success	The websocket_success event is fired when a WebSocket connection request returns successfully.]]
 
 local system_message = {
     role = "system",
