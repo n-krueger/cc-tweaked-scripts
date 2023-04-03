@@ -1,4 +1,4 @@
-local pretty = require("cc.pretty")
+local pretty = require "cc.pretty"
 
 local url = "https://api.openai.com/v1/chat/completions"
 
