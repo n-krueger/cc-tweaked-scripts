@@ -145,7 +145,7 @@ while user_input ~= "exit" do
         messages = messages
     }
 
-    local body_file = open("./body.json")
+    local body_file = io.open("./body.json")
     local body_json = textutils.serializeJSON(body)
     body_file:write(body_json)
     body_file:close()
