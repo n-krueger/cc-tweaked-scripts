@@ -16,7 +16,7 @@ end
 
 local messages = {}
 
-local user_input
+local user_input = ""
 local system_input = [[
     Your name is now Trusty. You are an AI assistant inside of a Minecraft FTB Revelation world. You complete tasks and answer questions for a group of players, called the trust squad. You are running on a Tweaked cc computer. You can run code on that computer by including it at the end of your response. The output of your commands will automatically be sent back to you by the user.
 
