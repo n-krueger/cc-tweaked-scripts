@@ -184,17 +184,22 @@ while user_input ~= "exit" do
 
         local func, err = load(command)
         if func then
+            local command_out = ""
+            function print (str)
+                command_out = command_out .. str
+            end
             local ok, res = pcall(func)
+
             if ok then
                 if res ~= nil then
                     local command_message = {
                         role = "user",
                         content = [[
                             ## CODE OUTPUT ##
-                        ]] .. json.encode(res)
+                        ]] .. json.encode(res) .. command_out
                     }
                     table.insert(messages, command_message) 
-                    print(json.encode(res))
+                    print(json.encode(res) .. command_out)
                     code_output = true
                 end
             else
