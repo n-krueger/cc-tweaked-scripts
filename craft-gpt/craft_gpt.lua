@@ -174,10 +174,10 @@ while user_input ~= "exit" do
     textutils.slowPrint(content)
 
     term.setTextColor(colors.green)
+    local code_output = false
     for command in string.gmatch(content, "```[^`]+```") do
         command = command:gsub("`", "")
 
-        local code_output = false
         local func, err = load(command)
         if func then
             local ok, res = pcall(func)
