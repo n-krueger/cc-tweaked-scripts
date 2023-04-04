@@ -191,7 +191,7 @@ while user_input ~= "exit" do
             local ok, res = pcall(func)
 
             if ok then
-                if res ~= nil then
+                if res ~= nil or command_out ~= "" then
                     local command_message = {
                         role = "user",
                         content = [[
