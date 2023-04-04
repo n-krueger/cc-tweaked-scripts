@@ -182,12 +182,13 @@ while user_input ~= "exit" do
     for command in string.gmatch(content, "```[^`]+```") do
         command = command:gsub("`", "")
 
+        local command_out = ""
+        function print (str)
+            command_out = command_out .. str
+        end
+
         local func, err = load(command)
         if func then
-            local command_out = ""
-            function print (str)
-                command_out = command_out .. str
-            end
             local ok, res = pcall(func)
 
             if ok then
