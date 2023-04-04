@@ -203,7 +203,15 @@ while user_input ~= "exit" do
                     code_output = true
                 end
             else
-                print("Execution error:", res)
+                local command_message = {
+                    role = "user",
+                    content = [[
+                        ## EXECUTION ERROR ##
+                    ]] .. json.encode(res)
+                }
+                table.insert(messages, command_message) 
+                print("Execution error:" .. res)
+                code_output = true
             end
         else
             -- print("Compilation error, running as shell command. Error:", err)
