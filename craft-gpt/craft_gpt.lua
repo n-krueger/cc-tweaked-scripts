@@ -146,7 +146,8 @@ while user_input ~= "exit" do
     -- Send chat history to ChatGPT to ask for a response.
     local body = {
         model = "gpt-3.5-turbo",
-        messages = messages
+        messages = messages,
+        temperature = 0.5
     }
 
     local body_file = io.open("./body.json", "w")
