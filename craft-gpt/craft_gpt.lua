@@ -140,6 +140,9 @@ local system_message = {
 table.insert(messages, system_message)
 
 while user_input ~= "exit" do
+    term.setTextColor(colors.white)
+    textutils.slowPrint("-----")
+
     -- Send chat history to ChatGPT to ask for a response.
     local body = {
         model = "gpt-3.5-turbo",
@@ -190,7 +193,7 @@ while user_input ~= "exit" do
                         ]] .. json.encode(res)
                     }
                     table.insert(messages, command_message) 
-                    print(json.decode(res))
+                    print(json.encode(res))
                     code_output = true
                 end
             else
